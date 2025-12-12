@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "gox",
+      "camelcase": "GoX",
+      "title": "GoX",
+      "scope": "source.gox",
+      "file-types": [
+        "gox"
+      ],
+      "injection-regex": "^gox$",
+      "class-name": "TreeSitterGox"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Gox grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "alex",
+        "email": "alex@doors.dev"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/doors-dev/tree-sitter-gox"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
