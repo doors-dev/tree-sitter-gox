@@ -24,6 +24,7 @@ export default grammar(Go, {
     $.gox_implicit_close_head,
     $.gox_raw_text,
     $.gox_comment,
+    $.gox_space_filler,
     $.gox_plain_text,
   ],
 
@@ -88,27 +89,6 @@ export default grammar(Go, {
       $.gox_elem_func_literal,
       $._gox_element,
     ),
-    _statement: $ => choice(
-      $._declaration,
-      $._simple_statement,
-      $.return_statement,
-      $.go_statement,
-      $.defer_statement,
-      $.if_statement,
-      $.for_statement,
-      $.expression_switch_statement,
-      $.type_switch_statement,
-      $.select_statement,
-      $.labeled_statement,
-      $.fallthrough_statement,
-      $.break_statement,
-      $.continue_statement,
-      $.goto_statement,
-      $.block,
-      $.empty_statement,
-      $.gox_early_return,
-    ),
-    gox_early_return: $ => seq(choice($.identifier, $.selector_expression), '?', optional($.expression_list)),
 
     gox_elem_function_declaration: $ => prec.right(1, seq(
       'elem',
@@ -153,6 +133,7 @@ export default grammar(Go, {
     ),
     _gox_content: $ => choice(
       $._gox_base_content,
+      $.gox_space_filler,
       $.gox_plain_text,
     ),
     gox_doctype: $ => seq(
@@ -241,7 +222,7 @@ export default grammar(Go, {
       alias('>', $.gox_head_end),
     ),
     gox_erroneous_close_head: $ => seq(
-      alias('</', $.gox_close_head_beg),
+      '</',
       $.gox_erroneous_close_head_name,
       alias('>', $.gox_head_end),
     ),

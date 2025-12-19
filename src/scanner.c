@@ -16,6 +16,7 @@ enum TokenType {
     IMPLICIT_END_TAG,
     RAW_TEXT,
     COMMENT,
+    SPACE_FILLER,
     TEXT,
 };
 
@@ -288,9 +289,100 @@ static bool scan_self_closing_tag_delimiter(Scanner *scanner, TSLexer *lexer) {
     }
     return false;
 }
+static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer, bool implicit_end_tag, bool filler) {
+    bool spaced = false;
+    while(!lexer->eof(lexer)) {
+        int c = lexer->lookahead;
+        if (!iswspace(c)) {
+            break;
+        }
+        if (filler && c == ' ') {
+            spaced = true;
+            break;
+        } 
+        skip(lexer);
+    }
+    if(lexer->eof(lexer)) {
+        return false;
+    }
+    if(spaced){
+        advance(lexer);
+        lexer->mark_end(lexer);
+        int c = lexer->lookahead;
+        if(iswspace(c) || lexer->eof(lexer) || c == '<' || c == '~' || c == '}') {
+            lexer->result_symbol = SPACE_FILLER;
+            return true;
+        }
+    } else if (lexer->lookahead == '}') {
+        if (implicit_end_tag && scanner->tags.size > 0) {
+            pop_tag(scanner);
+            lexer->result_symbol = IMPLICIT_END_TAG;
+            return true;
+        }  
+        return false;
+    }
+    spaced = false;
+    bool consumed = false;
+    int brace_depth = 0;
+    while(!lexer->eof(lexer)) {
+        int c = lexer->lookahead;
+        if (c == '<') {
+            break;
+        }
+        if (c == '~') {
+            break;
+        }
+        if (c == '}') {
+            if (brace_depth == 0) {
+                break;
+            }
+            brace_depth--;
+        }
+        if (c == '{') {
+            brace_depth++;
+        } 
+        consumed = true;
+        advance(lexer);       
+        if(!spaced && c == ' ') {
+            spaced = true;
+        } else if (iswspace(c)) {
+            continue;
+        } else {
+            spaced = false;
+        }
+        lexer->mark_end(lexer);
+    }
+    if (!consumed) {
+        return false;
+    }
+    lexer->result_symbol = TEXT;
+    return true;
+} 
+/*
+static bool scan_filler(Scanner *scanner, TSLexer *lexer) {
+    int c = lexer->lookahead;
+    if (!iswspace(c)) {
+        return false;
+    }
+    if (c != ' ') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        lexer->result_symbol = TEXT_FILLER;
+        return true;
+    } 
+    lexer->advance(lexer, false)
+    lexer->mark_end(lexer);
+    c = lexer->lookahead;
+    if (c != ' ') {
+        return false
+    }
+    lexer->result_symbol = TEXT_FILLER;
+    return true;
+}
 
 static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer, bool implicit_end_tag) {
     bool consumed = false;
+    bool spaced = false;
     int brace_depth = 0;
     while (lexer->lookahead) {
         int c = lexer->lookahead;
@@ -303,7 +395,7 @@ static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer
         if (c == '~') {
             break;
         }
-        if (iswspace(c) && !consumed) {
+        if (!consumed && iswspace(c) ) {
             skip(lexer);
             continue;
         }
@@ -322,8 +414,12 @@ static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer
             brace_depth--;
         }
         advance(lexer);       
-        if (iswspace(c)) {
+        if(!spaced && c == ' ') {
+            spaced = true;
+        } else if (iswspace(c)) {
             continue;
+        } else {
+            spaced = false;
         }
         consumed = true;
         lexer->mark_end(lexer);
@@ -332,14 +428,14 @@ static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer
         lexer->result_symbol = TEXT;
     }
     return consumed;
-}
+} */
 
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
     if (valid_symbols[RAW_TEXT] && !valid_symbols[START_TAG_NAME] && !valid_symbols[END_TAG_NAME]) {
         return scan_raw_text(scanner, lexer);
     }
 
-    if (valid_symbols[TEXT] && scan_plain_text_or_implicit_end_tag(scanner, lexer, valid_symbols[IMPLICIT_END_TAG])) {
+    if (valid_symbols[TEXT] && scan_plain_text_or_implicit_end_tag(scanner, lexer, valid_symbols[IMPLICIT_END_TAG], valid_symbols[SPACE_FILLER])) {
         return true;
     }
 

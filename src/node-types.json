@@ -246,10 +246,6 @@
         "named": true
       },
       {
-        "type": "gox_early_return",
-        "named": true
-      },
-      {
         "type": "if_statement",
         "named": true
       },
@@ -1359,6 +1355,10 @@
             "named": true
           },
           {
+            "type": "gox_space_filler",
+            "named": true
+          },
+          {
             "type": "gox_style_head",
             "named": true
           },
@@ -1525,29 +1525,6 @@
       "types": [
         {
           "type": "gox_head_end",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "gox_early_return",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "expression_list",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "selector_expression",
           "named": true
         }
       ]
@@ -1732,6 +1709,10 @@
             "named": true
           },
           {
+            "type": "gox_space_filler",
+            "named": true
+          },
+          {
             "type": "gox_style_head",
             "named": true
           },
@@ -1777,10 +1758,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "gox_close_head_beg",
-          "named": true
-        },
         {
           "type": "gox_erroneous_close_head_name",
           "named": true
@@ -1864,6 +1841,10 @@
           },
           {
             "type": "gox_self_closing_head",
+            "named": true
+          },
+          {
+            "type": "gox_space_filler",
             "named": true
           },
           {
@@ -4084,6 +4065,10 @@
     "named": false
   },
   {
+    "type": "</",
+    "named": false
+  },
+  {
     "type": "<<",
     "named": false
   },
@@ -4117,10 +4102,6 @@
   },
   {
     "type": ">>=",
-    "named": false
-  },
-  {
-    "type": "?",
     "named": false
   },
   {
@@ -4270,6 +4251,10 @@
   },
   {
     "type": "gox_self_closing_head_end",
+    "named": true
+  },
+  {
+    "type": "gox_space_filler",
     "named": true
   },
   {

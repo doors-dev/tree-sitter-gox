@@ -10,7 +10,6 @@
 (gox_close_head_beg) @punctuation.bracket
 (gox_head_end) @punctuation.bracket
 (gox_self_closing_head_end) @punctuation.bracket
-(gox_early_return "?" @operator)
 (gox_doctype) @constant
 (gox_doctype "<!" @punctuation.bracket)
 

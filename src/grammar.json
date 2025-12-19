@@ -2322,10 +2322,6 @@
         {
           "type": "SYMBOL",
           "name": "empty_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_early_return"
         }
       ]
     },
@@ -7024,40 +7020,6 @@
         ]
       }
     },
-    "gox_early_return": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "identifier"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "selector_expression"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": "?"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "expression_list"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
     "gox_elem_function_declaration": {
       "type": "PREC_RIGHT",
       "value": 1,
@@ -7305,6 +7267,10 @@
         {
           "type": "SYMBOL",
           "name": "_gox_base_content"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_space_filler"
         },
         {
           "type": "SYMBOL",
@@ -7916,13 +7882,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "</"
-          },
-          "named": true,
-          "value": "gox_close_head_beg"
+          "type": "STRING",
+          "value": "</"
         },
         {
           "type": "SYMBOL",
@@ -8829,6 +8790,10 @@
     {
       "type": "SYMBOL",
       "name": "gox_comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gox_space_filler"
     },
     {
       "type": "SYMBOL",
