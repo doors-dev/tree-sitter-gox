@@ -8,21 +8,21 @@
 (gox_tilde_block
   "}" @indent.branch @indent.end)
 
-;;(gox_style_head
-;;  (gox_open_head)) @indent.begin
-;;(gox_script_head
-;;  (gox_open_head)) @indent.begin
+(gox_style_head
+  (gox_open_head)) @indent.begin
+(gox_script_head
+  (gox_open_head)) @indent.begin
 (gox_element
   (gox_open_head)) @indent.begin
 (gox_head
   (gox_open_head)) @indent.begin
 
-;; (gox_style_head
-;;   (gox_close_head
-;;     (gox_head_end) @indent.end))
-;; (gox_script_head
-;;   (gox_close_head
-;;     (gox_head_end) @indent.end))
+ (gox_style_head
+   (gox_close_head
+     (gox_head_end) @indent.end))
+ (gox_script_head
+   (gox_close_head
+     (gox_head_end) @indent.end))
 (gox_head
   (gox_close_head
     (gox_head_end) @indent.end))
@@ -32,10 +32,10 @@
 (gox_head
   (gox_implicit_close_head) @indent.end)
 
-;; (gox_style_head
-;;   (gox_close_head) @indent.branch)
-;; (gox_script_head
-;;   (gox_close_head) @indent.branch)
+(gox_style_head
+   (gox_close_head) @indent.branch)
+(gox_script_head
+   (gox_close_head) @indent.branch)
 (gox_element
   (gox_close_head) @indent.branch)
 (gox_head

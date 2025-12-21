@@ -150,7 +150,6 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
         return false;
     }
 
-    lexer->mark_end(lexer);
 
     const char *end_delimiter =
     array_back(&scanner->tags)->type == SCRIPT ? "</SCRIPT" :
@@ -162,6 +161,15 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
         abort();
     }
 
+    bool trim = array_back(&scanner->tags)->type != RAW;
+
+    if (trim) {
+        while (iswspace(lexer->lookahead)) {
+            skip(lexer);
+        }
+    }
+    lexer->mark_end(lexer);
+
     unsigned delimiter_index = 0;
     while (lexer->lookahead) {
         if (towupper(lexer->lookahead) == end_delimiter[delimiter_index]) {
@@ -172,8 +180,12 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
             advance(lexer);
         } else {
             delimiter_index = 0;
-            advance(lexer);
-            lexer->mark_end(lexer);
+            if (trim && iswspace(lexer->lookahead)) {
+                advance(lexer);
+            } else {
+                advance(lexer);
+                lexer->mark_end(lexer);
+            }
         }
     }
 
