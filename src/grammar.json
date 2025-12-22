@@ -7964,8 +7964,13 @@
           "value": "gox_attr_name"
         },
         {
-          "type": "STRING",
-          "value": "="
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          },
+          "named": true,
+          "value": "gox_attr_assign"
         },
         {
           "type": "CHOICE",
@@ -8024,8 +8029,13 @@
           "value": "gox_attr_name"
         },
         {
-          "type": "STRING",
-          "value": "="
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          },
+          "named": true,
+          "value": "gox_attr_assign"
         },
         {
           "type": "FIELD",
@@ -8049,8 +8059,13 @@
           }
         },
         {
-          "type": "STRING",
-          "value": "="
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          },
+          "named": true,
+          "value": "gox_attr_assign"
         },
         {
           "type": "CHOICE",
@@ -8108,8 +8123,13 @@
           }
         },
         {
-          "type": "STRING",
-          "value": "="
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          },
+          "named": true,
+          "value": "gox_attr_assign"
         },
         {
           "type": "FIELD",
@@ -8139,8 +8159,13 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "="
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "="
+                  },
+                  "named": true,
+                  "value": "gox_attr_assign"
                 },
                 {
                   "type": "FIELD",

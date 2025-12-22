@@ -241,7 +241,7 @@ export default grammar(Go, {
     ),
     gox_class_attr: $ => seq(
       alias(/[Cc][Ll][Aa][Ss][Ss]/, $.gox_attr_name),
-      '=',
+      alias('=', $.gox_attr_assign),
       choice(
         field('value', $.gox_func),
         seq('(', field('value', $.gox_func), ')'),
@@ -250,12 +250,12 @@ export default grammar(Go, {
     ),
     gox_class_literal_attr: $ => seq(
       alias(/[Cc][Ll][Aa][Ss][Ss]/, $.gox_attr_name),
-      '=',
+      alias('=', $.gox_attr_assign),
       field('value', $._gox_literal_value),
     ),
     gox_attr: $ => seq(
       field('name', $.gox_attr_name),
-      '=',
+      alias('=', $.gox_attr_assign),
       choice(
         field('value', $.gox_func),
         seq('(', field('value', $.gox_func), ')'),
@@ -264,13 +264,13 @@ export default grammar(Go, {
     ),
     gox_literal_attr: $ => seq(
       field('name', $.gox_attr_name),
-      '=',
+      alias('=', $.gox_attr_assign),
       field('value', $._gox_literal_value),
     ),
     gox_bool_attr: $ => seq(
       field('name', $.gox_attr_name),
       optional(seq(
-        '=',
+        alias('=', $.gox_attr_assign),
         field('value', choice($.true, $.false)),
       )),
     ),
