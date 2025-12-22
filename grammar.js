@@ -224,7 +224,7 @@ export default grammar(Go, {
     gox_erroneous_close_head: $ => seq(
       '</',
       $.gox_erroneous_close_head_name,
-      alias('>', $.gox_head_end),
+      '>',
     ),
     gox_text: _ => /([^<>{}\s~])([^<>{}~]*[^<>{}~\s])?/,
     _gox_attr: $ => choice(
@@ -241,7 +241,7 @@ export default grammar(Go, {
     ),
     gox_class_attr: $ => seq(
       alias(/[Cc][Ll][Aa][Ss][Ss]/, $.gox_attr_name),
-      alias('=', $.gox_attr_assign),
+      alias('=', $.gox_attr_eq),
       choice(
         field('value', $.gox_func),
         seq('(', field('value', $.gox_func), ')'),
@@ -270,7 +270,7 @@ export default grammar(Go, {
     gox_bool_attr: $ => seq(
       field('name', $.gox_attr_name),
       optional(seq(
-        alias('=', $.gox_attr_assign),
+      alias('=', $.gox_attr_assign),
         field('value', choice($.true, $.false)),
       )),
     ),

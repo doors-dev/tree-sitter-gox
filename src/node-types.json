@@ -1464,7 +1464,7 @@
       "required": true,
       "types": [
         {
-          "type": "gox_attr_assign",
+          "type": "gox_attr_eq",
           "named": true
         },
         {
@@ -1783,15 +1783,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "gox_erroneous_close_head_name",
-          "named": true
-        },
-        {
-          "type": "gox_head_end",
           "named": true
         }
       ]
@@ -4249,6 +4245,10 @@
   },
   {
     "type": "gox_attr_assign",
+    "named": true
+  },
+  {
+    "type": "gox_attr_eq",
     "named": true
   },
   {

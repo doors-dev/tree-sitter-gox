@@ -7890,13 +7890,8 @@
           "name": "gox_erroneous_close_head_name"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": ">"
-          },
-          "named": true,
-          "value": "gox_head_end"
+          "type": "STRING",
+          "value": ">"
         }
       ]
     },
@@ -7970,7 +7965,7 @@
             "value": "="
           },
           "named": true,
-          "value": "gox_attr_assign"
+          "value": "gox_attr_eq"
         },
         {
           "type": "CHOICE",

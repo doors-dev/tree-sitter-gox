@@ -1,6 +1,9 @@
 ; inherits: go
 
 (gox_erroneous_close_head) @comment.error
+(gox_erroneous_close_head
+  ["</" ">"] @comment.error
+) 
 (gox_comment) @comment @spell
 (gox_head_name) @tag
 (gox_attr_name) @tag.attribute
