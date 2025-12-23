@@ -163,9 +163,9 @@ export default grammar(Go, {
       alias($._gox_self_closer, $.gox_self_closing_head_end),
     ),
     gox_element: $ => seq(
-      alias($.gox_element_open_head, $.gox_open_head),
+      field('open', alias($.gox_element_open_head, $.gox_open_head)),
       field('content', repeat($._gox_content)),
-      choice($.gox_close_head, $.gox_implicit_close_head),
+      field('close', choice($.gox_close_head, $.gox_implicit_close_head)),
     ),
     gox_void_head: $ => seq(
       alias('<', $.gox_open_head_beg),
@@ -270,7 +270,7 @@ export default grammar(Go, {
     gox_bool_attr: $ => seq(
       field('name', $.gox_attr_name),
       optional(seq(
-      alias('=', $.gox_attr_assign),
+        alias('=', $.gox_attr_assign),
         field('value', choice($.true, $.false)),
       )),
     ),

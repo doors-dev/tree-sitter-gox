@@ -48,7 +48,7 @@ static unsigned serialize(Scanner *scanner, char *buffer) {
             if (size + 2 + name_length >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
                 break;
             }
-            buffer[size++] = (char)tag.type;
+            buffer[size++] = (char)(uint8_t)tag.type;
             buffer[size++] = (char)name_length;
             strncpy(&buffer[size], tag.custom_tag_name.contents, name_length);
             size += name_length;
@@ -56,7 +56,7 @@ static unsigned serialize(Scanner *scanner, char *buffer) {
             if (size + 1 >= TREE_SITTER_SERIALIZATION_BUFFER_SIZE) {
                 break;
             }
-            buffer[size++] = (char)tag.type;
+            buffer[size++] = (char)(uint8_t)tag.type;
         }
     }
 
@@ -86,7 +86,7 @@ static void deserialize(Scanner *scanner, const char *buffer, unsigned length) {
             unsigned iter = 0;
             for (iter = 0; iter < serialized_tag_count; iter++) {
                 Tag tag = tag_new();
-                tag.type = (TagType)buffer[size++];
+                tag.type = (TagType)(uint8_t)buffer[size++];
                 if (tag.type == CUSTOM) {
                     uint16_t name_length = (uint8_t)buffer[size++];
                     array_reserve(&tag.custom_tag_name, name_length);
@@ -275,6 +275,8 @@ static bool scan_start_tag_name(Scanner *scanner, TSLexer *lexer) {
     return true;
 }
 
+
+
 static bool scan_end_tag_name(Scanner *scanner, TSLexer *lexer) {
     String tag_name = scan_tag_name(lexer);
     Tag tag = tag_for_name(tag_name);
@@ -284,7 +286,6 @@ static bool scan_end_tag_name(Scanner *scanner, TSLexer *lexer) {
     } else {
         lexer->result_symbol = ERRONEOUS_END_TAG_NAME;
     }
-
     tag_free(&tag);
     return true;
 }
@@ -301,6 +302,7 @@ static bool scan_self_closing_tag_delimiter(Scanner *scanner, TSLexer *lexer) {
     }
     return false;
 }
+
 static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer, bool implicit_end_tag, bool filler) {
     bool spaced = false;
     while(!lexer->eof(lexer)) {
@@ -370,77 +372,6 @@ static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer
     lexer->result_symbol = TEXT;
     return true;
 } 
-/*
-static bool scan_filler(Scanner *scanner, TSLexer *lexer) {
-    int c = lexer->lookahead;
-    if (!iswspace(c)) {
-        return false;
-    }
-    if (c != ' ') {
-        lexer->advance(lexer, false);
-        lexer->mark_end(lexer);
-        lexer->result_symbol = TEXT_FILLER;
-        return true;
-    } 
-    lexer->advance(lexer, false)
-    lexer->mark_end(lexer);
-    c = lexer->lookahead;
-    if (c != ' ') {
-        return false
-    }
-    lexer->result_symbol = TEXT_FILLER;
-    return true;
-}
-
-static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer, bool implicit_end_tag) {
-    bool consumed = false;
-    bool spaced = false;
-    int brace_depth = 0;
-    while (lexer->lookahead) {
-        int c = lexer->lookahead;
-        if (lexer->eof(lexer) || lexer->lookahead == '\0') {
-            break;
-        }
-        if (c == '<') {
-            break;
-        }
-        if (c == '~') {
-            break;
-        }
-        if (!consumed && iswspace(c) ) {
-            skip(lexer);
-            continue;
-        }
-        if (c == '{') {
-            brace_depth++;
-        } 
-        if (c == '}') {
-            if (brace_depth == 0) {
-                if (implicit_end_tag && scanner->tags.size > 0 && !consumed) {
-                    pop_tag(scanner);
-                    lexer->result_symbol = IMPLICIT_END_TAG;
-                    return true;
-                }  
-                break;
-            }
-            brace_depth--;
-        }
-        advance(lexer);       
-        if(!spaced && c == ' ') {
-            spaced = true;
-        } else if (iswspace(c)) {
-            continue;
-        } else {
-            spaced = false;
-        }
-        consumed = true;
-        lexer->mark_end(lexer);
-    }
-    if (consumed) {
-        lexer->result_symbol = TEXT;
-    }
-    return consumed;
-} */
 
 static bool scan(Scanner *scanner, TSLexer *lexer, const bool *valid_symbols) {
     if (valid_symbols[RAW_TEXT] && !valid_symbols[START_TAG_NAME] && !valid_symbols[END_TAG_NAME]) {

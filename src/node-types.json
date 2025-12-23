@@ -1696,6 +1696,20 @@
     "type": "gox_element",
     "named": true,
     "fields": {
+      "close": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_close_head",
+            "named": true
+          },
+          {
+            "type": "gox_implicit_close_head",
+            "named": true
+          }
+        ]
+      },
       "content": {
         "multiple": true,
         "required": false,
@@ -1757,25 +1771,17 @@
             "named": true
           }
         ]
+      },
+      "open": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_open_head",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "gox_close_head",
-          "named": true
-        },
-        {
-          "type": "gox_implicit_close_head",
-          "named": true
-        },
-        {
-          "type": "gox_open_head",
-          "named": true
-        }
-      ]
     }
   },
   {

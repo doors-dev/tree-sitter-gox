@@ -7430,13 +7430,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "open",
           "content": {
-            "type": "SYMBOL",
-            "name": "gox_element_open_head"
-          },
-          "named": true,
-          "value": "gox_open_head"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "gox_element_open_head"
+            },
+            "named": true,
+            "value": "gox_open_head"
+          }
         },
         {
           "type": "FIELD",
@@ -7450,17 +7454,21 @@
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "gox_close_head"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "gox_implicit_close_head"
-            }
-          ]
+          "type": "FIELD",
+          "name": "close",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "gox_close_head"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "gox_implicit_close_head"
+              }
+            ]
+          }
         }
       ]
     },

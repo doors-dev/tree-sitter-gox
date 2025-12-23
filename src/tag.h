@@ -27,7 +27,6 @@ typedef enum {
     TRACK,
     WBR,
     END_OF_VOID_TAGS,
-
     A,
     ABBR,
     ADDRESS,
@@ -130,11 +129,9 @@ typedef enum {
     UL,
     VAR,
     VIDEO,
-
     CUSTOM,
     RAW,
     ELEMENT,
-
     END_,
 } TagType;
 
@@ -291,7 +288,7 @@ static TagType tag_type_for_name(const String *tag_name) {
     if (tag_name->size == 0) {
         return ELEMENT;
     }
-    for (int i = 0; i < 126; i++) {
+    for (int i = 0; i < 127; i++) {
         const TagMapEntry *entry = &TAG_TYPES_BY_TAG_NAME[i];
         if (
             strlen(entry->tag_name) == tag_name->size &&
