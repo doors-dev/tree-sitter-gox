@@ -7396,13 +7396,17 @@
           "value": "gox_open_head_beg"
         },
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "_gox_open_head_name"
-          },
-          "named": true,
-          "value": "gox_head_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_gox_open_head_name"
+            },
+            "named": true,
+            "value": "gox_head_name"
+          }
         },
         {
           "type": "FIELD",

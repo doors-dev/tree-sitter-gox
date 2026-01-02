@@ -158,7 +158,7 @@ export default grammar(Go, {
     ),
     gox_self_closing_head: $ => seq(
       alias('<', $.gox_open_head_beg),
-      alias($._gox_open_head_name, $.gox_head_name),
+      field('name', alias($._gox_open_head_name, $.gox_head_name)),
       field('attrs', repeat($._gox_attr)),
       alias($._gox_self_closer, $.gox_self_closing_head_end),
     ),
