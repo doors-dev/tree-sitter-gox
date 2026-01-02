@@ -139,7 +139,7 @@ export default grammar(Go, {
     gox_doctype: $ => seq(
       '<!',
       alias($._gox_doctype, 'doctype'),
-      /[^>]+/,
+      alias(/[^>]+/, $.gox_doctype_identifier),
       alias('>', $.gox_head_end),
     ),
     _gox_doctype: _ => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,

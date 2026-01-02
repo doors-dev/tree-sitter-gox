@@ -1548,9 +1548,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "gox_doctype_identifier",
+          "named": true
+        },
         {
           "type": "gox_head_end",
           "named": true
@@ -4273,6 +4277,10 @@
   },
   {
     "type": "gox_comment",
+    "named": true
+  },
+  {
+    "type": "gox_doctype_identifier",
     "named": true
   },
   {

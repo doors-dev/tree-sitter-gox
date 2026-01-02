@@ -416,7 +416,7 @@ static const char * const ts_symbol_names[] = {
   [sym_comment] = "comment",
   [anon_sym_elem] = "elem",
   [anon_sym_LT_BANG] = "<!",
-  [aux_sym_gox_doctype_token1] = "gox_doctype_token1",
+  [aux_sym_gox_doctype_token1] = "gox_doctype_identifier",
   [sym__gox_doctype] = "doctype",
   [anon_sym_SLASH_GT] = "gox_self_closing_head_end",
   [anon_sym_LT_SLASH] = "</",
@@ -1308,8 +1308,8 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = false,
   },
   [aux_sym_gox_doctype_token1] = {
-    .visible = false,
-    .named = false,
+    .visible = true,
+    .named = true,
   },
   [sym__gox_doctype] = {
     .visible = true,
