@@ -7,5 +7,5 @@
   (gox_element)
   (gox_tilde_if)
   (gox_tilde_for)
-  (gox_block) 
+  (gox_block)
 ] @fold
