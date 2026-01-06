@@ -1,6 +1,7 @@
 package tree_sitter_gox
 
-// #cgo CFLAGS: -std=c11 -fPIC
+// #cgo !windows CFLAGS: -std=c11 -fPIC
+// #cgo  windows CFLAGS: -std=c11
 // #include "../../src/parser.c"
 // #if __has_include("../../src/scanner.c")
 // #include "../../src/scanner.c"
