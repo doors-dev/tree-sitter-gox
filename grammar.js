@@ -258,7 +258,11 @@ export default grammar(Go, {
       alias('=', $.gox_attr_assign),
       choice(
         field('value', $.gox_func),
-        seq('(', field('value', $.gox_func), ')'),
+        seq(
+          alias('(', $.gox_redundant),
+          field('value', $.gox_func),
+          alias(')', $.gox_redundant)
+        ),
         field('value', $._gox_attr_value),
       ),
     ),
@@ -335,7 +339,11 @@ export default grammar(Go, {
         ),
         seq(alias(token.immediate('>'), $.gox_tilde_marker), field('body', alias($._gox_composite_arg, $.gox_tilde_proxy))),
         field('body', $.gox_func),
-        seq('(', field('body', $.gox_func), ')'),
+        seq(
+          alias('(', $.gox_redundant),
+          field('value', $.gox_func),
+          alias(')', $.gox_redundant)
+        ),
       ),
     ),
     gox_tilde_comment: $ => seq(
@@ -347,11 +355,11 @@ export default grammar(Go, {
       field('body', optional($.statement_list)),
       '}',
     ), seq(
-      '(',
+      alias('(', $.gox_redundant),
       '{',
       field('body', optional($.statement_list)),
       '}',
-      ')',
+      alias(')', $.gox_redundant),
     )),
     gox_block: $ => seq(
       '{',

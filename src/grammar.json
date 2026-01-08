@@ -8094,8 +8094,13 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "("
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
                 },
                 {
                   "type": "FIELD",
@@ -8106,8 +8111,13 @@
                   }
                 },
                 {
-                  "type": "STRING",
-                  "value": ")"
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
                 }
               ]
             },
@@ -8553,20 +8563,30 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "("
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
                 },
                 {
                   "type": "FIELD",
-                  "name": "body",
+                  "name": "value",
                   "content": {
                     "type": "SYMBOL",
                     "name": "gox_func"
                   }
                 },
                 {
-                  "type": "STRING",
-                  "value": ")"
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
                 }
               ]
             }
@@ -8632,8 +8652,13 @@
           "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "("
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              },
+              "named": true,
+              "value": "gox_redundant"
             },
             {
               "type": "STRING",
@@ -8660,8 +8685,13 @@
               "value": "}"
             },
             {
-              "type": "STRING",
-              "value": ")"
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": ")"
+              },
+              "named": true,
+              "value": "gox_redundant"
             }
           ]
         }

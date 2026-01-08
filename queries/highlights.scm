@@ -30,11 +30,6 @@
       ")"
     ] @punctuation.special))
 
-(gox_attr
-  [
-    "("
-    ")"
-  ] @punctuation.special)
 
 (gox_tilde_proxy
   [
@@ -42,11 +37,6 @@
     ")"
   ] @punctuation.special)
 
-(gox_tilde
-  [
-    "("
-    ")"
-  ] @punctuation.special)
 
 (gox_tilde_job
   [
@@ -61,12 +51,6 @@
   ] @punctuation.special)
 
 (gox_tilde_for
-  [
-    "("
-    ")"
-  ] @punctuation.special)
-
-(gox_tilde_block
   [
     "("
     ")"
