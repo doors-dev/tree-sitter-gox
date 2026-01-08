@@ -1268,10 +1268,6 @@
         "required": true,
         "types": [
           {
-            "type": "composite_literal",
-            "named": true
-          },
-          {
             "type": "gox_func",
             "named": true
           },
@@ -1304,20 +1300,21 @@
   {
     "type": "gox_attr_mod",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_expression",
-          "named": true
-        },
-        {
-          "type": "variadic_argument",
-          "named": true
-        }
-      ]
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_multi_arg",
+            "named": true
+          },
+          {
+            "type": "gox_single_arg",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1436,10 +1433,6 @@
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "composite_literal",
-            "named": true
-          },
           {
             "type": "gox_func",
             "named": true
@@ -1964,6 +1957,25 @@
     }
   },
   {
+    "type": "gox_multi_arg",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "variadic_argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "gox_open_head",
     "named": true,
     "fields": {
@@ -2168,6 +2180,60 @@
     }
   },
   {
+    "type": "gox_single_arg",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal_value",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_type",
+            "named": true
+          },
+          {
+            "type": "generic_type",
+            "named": true
+          },
+          {
+            "type": "implicit_length_array_type",
+            "named": true
+          },
+          {
+            "type": "map_type",
+            "named": true
+          },
+          {
+            "type": "qualified_type",
+            "named": true
+          },
+          {
+            "type": "slice_type",
+            "named": true
+          },
+          {
+            "type": "struct_type",
+            "named": true
+          },
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "gox_style_head",
     "named": true,
     "fields": {
@@ -2228,15 +2294,15 @@
             "named": true
           },
           {
+            "type": "gox_tilde_job",
+            "named": true
+          },
+          {
             "type": "gox_tilde_literal_value",
             "named": true
           },
           {
             "type": "gox_tilde_proxy",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_value",
             "named": true
           }
         ]
@@ -2411,6 +2477,26 @@
     }
   },
   {
+    "type": "gox_tilde_job",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_multi_arg",
+            "named": true
+          },
+          {
+            "type": "gox_single_arg",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "gox_tilde_literal_value",
     "named": true,
     "fields": {},
@@ -2444,55 +2530,21 @@
   {
     "type": "gox_tilde_proxy",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "composite_literal",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "type_conversion_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "gox_tilde_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "composite_literal",
-          "named": true
-        },
-        {
-          "type": "nil",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "type_conversion_expression",
-          "named": true
-        }
-      ]
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_multi_arg",
+            "named": true
+          },
+          {
+            "type": "gox_single_arg",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {

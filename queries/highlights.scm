@@ -17,6 +17,61 @@
 (gox_tilde
   (gox_tilde_marker) @punctuation.special)
 
+(gox_attr_mod
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_attr
+  (parenthesized_expression
+    [
+      "("
+      ")"
+    ] @punctuation.special))
+
+(gox_attr
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_tilde_proxy
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_tilde
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_tilde_job
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_tilde_if
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_tilde_for
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
+(gox_tilde_block
+  [
+    "("
+    ")"
+  ] @punctuation.special)
+
 (gox_tilde_comment
   (gox_tilde_marker) @comment)
 

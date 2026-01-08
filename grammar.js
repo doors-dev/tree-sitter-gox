@@ -232,7 +232,7 @@ export default grammar(Go, {
       $.gox_literal_attr,
       $._gox_class_attr,
       $.gox_bool_attr,
-      alias($.argument_list, $.gox_attr_mod),
+      alias($._gox_arg, $.gox_attr_mod),
       $.comment,
     ),
     _gox_class_attr: $ => choice(
@@ -245,7 +245,7 @@ export default grammar(Go, {
       choice(
         field('value', $.gox_func),
         seq('(', field('value', $.gox_func), ')'),
-        field('value', $._gox_value),
+        field('value', $._gox_attr_value),
       ),
     ),
     gox_class_literal_attr: $ => seq(
@@ -259,9 +259,10 @@ export default grammar(Go, {
       choice(
         field('value', $.gox_func),
         seq('(', field('value', $.gox_func), ')'),
-        field('value', $._gox_value),
+        field('value', $._gox_attr_value),
       ),
     ),
+    _gox_attr_value: $ => choice($.nil, $.parenthesized_expression, $.type_conversion_expression),
     gox_literal_attr: $ => seq(
       field('name', $.gox_attr_name),
       alias('=', $.gox_attr_assign),
@@ -275,11 +276,44 @@ export default grammar(Go, {
       )),
     ),
     gox_attr_name: _ => /[A-Za-z_:][A-Za-z0-9._:-]*/,
-    _gox_value: $ => choice(
-      $.nil,
-      $.parenthesized_expression,
-      $.composite_literal,
-      $.type_conversion_expression
+    argument_list: $ => seq(
+      '(',
+      optional(seq(
+        choice($._expression, $.variadic_argument),
+        repeat(seq(',', choice($._expression, $.variadic_argument))),
+        optional(','),
+      )),
+      ')',
+    ),
+    gox_multi_arg: $ => choice(
+      seq(
+        $.variadic_argument,
+        optional(','),
+      ),
+      seq(
+        choice($._expression, $.variadic_argument),
+        repeat1(seq(',', choice($._expression, $.variadic_argument))),
+        optional(','),
+      )
+    ),
+    _gox_composite_arg: $ => choice(
+      field("arg", alias($.composite_literal, $.gox_single_arg)),
+      $._gox_arg,
+    ),
+    _gox_arg: $ => choice(
+      seq(
+        '(',
+        optional(seq(
+          field("arg", alias($._expression, $.gox_single_arg)),
+          optional(','),
+        )),
+        ')'
+      ),
+      seq(
+        '(',
+        field("arg", $.gox_multi_arg),
+        ')',
+      ),
     ),
     _gox_literal_value: $ => choice(
       $._string_literal,
@@ -303,12 +337,12 @@ export default grammar(Go, {
           choice(
             $.gox_tilde_if,
             $.gox_tilde_for,
-            alias($._gox_value, $.gox_tilde_value),
+            alias($._gox_composite_arg, $.gox_tilde_job),
             alias($._gox_literal_value, $.gox_tilde_literal_value),
             $.gox_tilde_block,
           ),
         ),
-        seq(alias(token.immediate('~'), $.gox_tilde_marker), field('body', alias($._gox_value, $.gox_tilde_proxy))),
+        seq(alias(token.immediate('>'), $.gox_tilde_marker), field('body', alias($._gox_composite_arg, $.gox_tilde_proxy))),
         field('body', $.gox_func),
         seq('(', field('body', $.gox_func), ')'),
       ),
