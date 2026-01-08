@@ -7939,7 +7939,7 @@
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "argument_list"
+            "name": "_gox_arg"
           },
           "named": true,
           "value": "gox_attr_mod"
@@ -8021,7 +8021,7 @@
               "name": "value",
               "content": {
                 "type": "SYMBOL",
-                "name": "_gox_value"
+                "name": "_gox_attr_value"
               }
             }
           ]
@@ -8116,10 +8116,27 @@
               "name": "value",
               "content": {
                 "type": "SYMBOL",
-                "name": "_gox_value"
+                "name": "_gox_attr_value"
               }
             }
           ]
+        }
+      ]
+    },
+    "_gox_attr_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "nil"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parenthesized_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_conversion_expression"
         }
       ]
     },
@@ -8209,24 +8226,183 @@
       "type": "PATTERN",
       "value": "[A-Za-z_:][A-Za-z0-9._:-]*"
     },
-    "_gox_value": {
+    "gox_multi_arg": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "nil"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variadic_argument"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "variadic_argument"
+                }
+              ]
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_expression"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "variadic_argument"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_gox_composite_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "arg",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "composite_literal"
+            },
+            "named": true,
+            "value": "gox_single_arg"
+          }
         },
         {
           "type": "SYMBOL",
-          "name": "parenthesized_expression"
+          "name": "_gox_arg"
+        }
+      ]
+    },
+    "_gox_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "arg",
+                      "content": {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_expression"
+                        },
+                        "named": true,
+                        "value": "gox_single_arg"
+                      }
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": ","
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "composite_literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_conversion_expression"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "FIELD",
+              "name": "arg",
+              "content": {
+                "type": "SYMBOL",
+                "name": "gox_multi_arg"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
         }
       ]
     },
@@ -8314,10 +8490,10 @@
                     "type": "ALIAS",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_gox_value"
+                      "name": "_gox_composite_arg"
                     },
                     "named": true,
-                    "value": "gox_tilde_value"
+                    "value": "gox_tilde_job"
                   },
                   {
                     "type": "ALIAS",
@@ -8344,7 +8520,7 @@
                     "type": "IMMEDIATE_TOKEN",
                     "content": {
                       "type": "STRING",
-                      "value": "~"
+                      "value": ">"
                     }
                   },
                   "named": true,
@@ -8357,7 +8533,7 @@
                     "type": "ALIAS",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_gox_value"
+                      "name": "_gox_composite_arg"
                     },
                     "named": true,
                     "value": "gox_tilde_proxy"
