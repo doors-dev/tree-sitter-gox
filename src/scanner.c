@@ -357,14 +357,15 @@ static bool scan_plain_text_or_implicit_end_tag(Scanner *scanner, TSLexer *lexer
         } 
         consumed = true;
         advance(lexer);       
-        if(!spaced && c == ' ') {
-            spaced = true;
-        } else if (iswspace(c)) {
-            continue;
-        } else {
+        if(!iswspace(c)) {
             spaced = false;
+            lexer->mark_end(lexer);
+            continue;
         }
-        lexer->mark_end(lexer);
+        if(c == ' ' && !spaced){
+            lexer->mark_end(lexer);
+        } 
+        spaced = true;
     }
     if (!consumed) {
         return false;
