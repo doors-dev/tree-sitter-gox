@@ -30,13 +30,11 @@
       ")"
     ] @punctuation.special))
 
-
 (gox_tilde_proxy
   [
     "("
     ")"
   ] @punctuation.special)
-
 
 (gox_tilde_job
   [
@@ -55,6 +53,9 @@
     "("
     ")"
   ] @punctuation.special)
+
+
+(gox_redundant) @comment.warning
 
 (gox_tilde_comment
   (gox_tilde_marker) @comment)
