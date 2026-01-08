@@ -308,7 +308,7 @@ export default grammar(Go, {
             $.gox_tilde_block,
           ),
         ),
-        seq(alias(token.immediate('~'), $.gox_tilde_marker), field('body', alias(choice($.composite_literal, $.argument_list), $.gox_tilde_proxy))),
+        seq(alias(token.immediate('~'), $.gox_tilde_marker), field('body', alias($._gox_value, $.gox_tilde_proxy))),
         field('body', $.gox_func),
         seq('(', field('body', $.gox_func), ')'),
       ),

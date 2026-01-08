@@ -8356,17 +8356,8 @@
                   "content": {
                     "type": "ALIAS",
                     "content": {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "composite_literal"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "argument_list"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_gox_value"
                     },
                     "named": true,
                     "value": "gox_tilde_proxy"
