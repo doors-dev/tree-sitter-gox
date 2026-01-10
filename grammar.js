@@ -16,7 +16,7 @@ export default grammar(Go, {
     $._gox_script_open_head_name,
     $._gox_style_open_head_name,
     $._gox_void_open_head_name,
-    $._gox_element_open_head_name,
+    $._gox_container_open_head_name,
     $._gox_raw_open_head_name,
     $._gox_close_head_name,
     $.gox_erroneous_close_head_name,
@@ -87,7 +87,7 @@ export default grammar(Go, {
       $.iota,
       $.parenthesized_expression,
       $.gox_elem_func_literal,
-      $._gox_element,
+      $.gox_element,
     ),
 
     gox_elem_function_declaration: $ => prec.right(1, seq(
@@ -121,13 +121,11 @@ export default grammar(Go, {
       $.parenthesized_expression,
       seq('(', $.gox_func, ')'),
     ),
-    _gox_element: $ => choice(alias($._gox_head_wrapper, $.gox_element), $.gox_element),
-    _gox_head_wrapper: $ => field('content', $._gox_head),
+    gox_element: $ => field('content', $._gox_head),
     _gox_base_content: $ => choice(
       $._gox_head,
       $.gox_erroneous_close_head,
       $.gox_doctype,
-      $.gox_element,
       $._gox_tilde,
       $.gox_comment,
     ),
@@ -136,6 +134,15 @@ export default grammar(Go, {
       $.gox_space_filler,
       $.gox_plain_text,
     ),
+    _gox_head: $ => choice(
+      $.gox_head,
+      $.gox_raw_head,
+      $.gox_script_head,
+      $.gox_style_head,
+      $.gox_void_head,
+      $.gox_container_head,
+      $.gox_self_closing_head,
+    ),
     gox_doctype: $ => seq(
       '<!',
       alias($._gox_doctype, 'doctype'),
@@ -143,14 +150,6 @@ export default grammar(Go, {
       alias('>', $.gox_head_end),
     ),
     _gox_doctype: _ => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
-    _gox_head: $ => choice(
-      $.gox_head,
-      $.gox_raw_head,
-      $.gox_script_head,
-      $.gox_style_head,
-      $.gox_void_head,
-      $.gox_self_closing_head,
-    ),
     gox_head: $ => seq(
       field('open', $.gox_open_head),
       field('content', repeat($._gox_content)),
@@ -162,8 +161,8 @@ export default grammar(Go, {
       field('attrs', repeat($._gox_attr)),
       alias($._gox_self_closer, $.gox_self_closing_head_end),
     ),
-    gox_element: $ => seq(
-      field('open', alias($.gox_element_open_head, $.gox_open_head)),
+    gox_container_head: $ => seq(
+      field('open', alias($.gox_container_open_head, $.gox_open_head)),
       field('content', repeat($._gox_content)),
       field('close', choice($.gox_close_head, $.gox_implicit_close_head)),
     ),
@@ -194,9 +193,9 @@ export default grammar(Go, {
       field('attrs', repeat($._gox_attr)),
       alias('>', $.gox_head_end),
     ),
-    gox_element_open_head: $ => seq(
+    gox_container_open_head: $ => seq(
       alias('<', $.gox_open_head_beg),
-      $._gox_element_open_head_name,
+      $._gox_container_open_head_name,
       alias('>', $.gox_head_end),
     ),
     gox_raw_open_head: $ => seq(
@@ -325,7 +324,7 @@ export default grammar(Go, {
       $.gox_tilde_proxy,
       $.gox_tilde_comment,
     ),
-    gox_tilde_proxy: $=>seq(
+    gox_tilde_proxy: $ => seq(
       alias('~>', $.gox_tilde_marker),
       field('body', $.gox_composite_arg)
     ),

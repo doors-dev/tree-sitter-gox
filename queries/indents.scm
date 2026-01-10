@@ -16,7 +16,7 @@
 (gox_script_head
   (gox_open_head)) @indent.begin
 
-(gox_element
+(gox_container_head
   (gox_open_head)) @indent.begin
 
 (gox_head
@@ -34,7 +34,7 @@
   (gox_close_head
     (gox_head_end) @indent.end))
 
-(gox_element
+(gox_container_head
   (gox_implicit_close_head) @indent.end)
 
 (gox_head
@@ -46,7 +46,7 @@
 (gox_script_head
   (gox_close_head) @indent.branch)
 
-(gox_element
+(gox_container_head
   (gox_close_head) @indent.branch)
 
 (gox_head

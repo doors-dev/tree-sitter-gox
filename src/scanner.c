@@ -8,7 +8,7 @@ enum TokenType {
     SCRIPT_START_TAG_NAME,
     STYLE_START_TAG_NAME,
     VOID_START_TAG_NAME,
-    ELEMENT_START_TAG_NAME,
+    CONTAINER_START_TAG_NAME,
     RAW_START_TAG_NAME,
     END_TAG_NAME,
     ERRONEOUS_END_TAG_NAME,
@@ -247,9 +247,9 @@ static bool scan_start_tag_name(Scanner *scanner, TSLexer *lexer) {
     String tag_name = scan_tag_name(lexer);
     Tag tag = tag_for_name(tag_name);
     switch (tag.type) {
-        case ELEMENT:
+        case CONTAINER:
             array_push(&scanner->tags, tag);
-            lexer->result_symbol = ELEMENT_START_TAG_NAME;
+            lexer->result_symbol = CONTAINER_START_TAG_NAME;
             break;
         case RAW:
             array_push(&scanner->tags, tag);

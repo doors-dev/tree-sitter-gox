@@ -3466,7 +3466,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_gox_element"
+          "name": "gox_element"
         }
       ]
     },
@@ -7206,25 +7206,7 @@
         }
       ]
     },
-    "_gox_element": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_gox_head_wrapper"
-          },
-          "named": true,
-          "value": "gox_element"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_element"
-        }
-      ]
-    },
-    "_gox_head_wrapper": {
+    "gox_element": {
       "type": "FIELD",
       "name": "content",
       "content": {
@@ -7246,10 +7228,6 @@
         {
           "type": "SYMBOL",
           "name": "gox_doctype"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_element"
         },
         {
           "type": "SYMBOL",
@@ -7275,6 +7253,39 @@
         {
           "type": "SYMBOL",
           "name": "gox_plain_text"
+        }
+      ]
+    },
+    "_gox_head": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "gox_head"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_raw_head"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_script_head"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_style_head"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_void_head"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_container_head"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_self_closing_head"
         }
       ]
     },
@@ -7317,35 +7328,6 @@
     "_gox_doctype": {
       "type": "PATTERN",
       "value": "[Dd][Oo][Cc][Tt][Yy][Pp][Ee]"
-    },
-    "_gox_head": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "gox_head"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_raw_head"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_script_head"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_style_head"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_void_head"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_self_closing_head"
-        }
-      ]
     },
     "gox_head": {
       "type": "SEQ",
@@ -7435,7 +7417,7 @@
         }
       ]
     },
-    "gox_element": {
+    "gox_container_head": {
       "type": "SEQ",
       "members": [
         {
@@ -7445,7 +7427,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "gox_element_open_head"
+              "name": "gox_container_open_head"
             },
             "named": true,
             "value": "gox_open_head"
@@ -7710,7 +7692,7 @@
         }
       ]
     },
-    "gox_element_open_head": {
+    "gox_container_open_head": {
       "type": "SEQ",
       "members": [
         {
@@ -7724,7 +7706,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_gox_element_open_head_name"
+          "name": "_gox_container_open_head_name"
         },
         {
           "type": "ALIAS",
@@ -8991,7 +8973,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_gox_element_open_head_name"
+      "name": "_gox_container_open_head_name"
     },
     {
       "type": "SYMBOL",

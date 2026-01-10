@@ -131,7 +131,7 @@ typedef enum {
     VIDEO,
     CUSTOM,
     RAW,
-    ELEMENT,
+    CONTAINER,
     END_,
 } TagType;
 
@@ -286,7 +286,7 @@ static const TagType TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[] = {
 
 static TagType tag_type_for_name(const String *tag_name) {
     if (tag_name->size == 0) {
-        return ELEMENT;
+        return CONTAINER;
     }
     for (int i = 0; i < 126; i++) {
         const TagMapEntry *entry = &TAG_TYPES_BY_TAG_NAME[i];

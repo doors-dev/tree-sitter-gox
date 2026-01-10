@@ -1334,11 +1334,11 @@
             "named": true
           },
           {
-            "type": "gox_doctype",
+            "type": "gox_container_head",
             "named": true
           },
           {
-            "type": "gox_element",
+            "type": "gox_doctype",
             "named": true
           },
           {
@@ -1565,6 +1565,102 @@
     }
   },
   {
+    "type": "gox_container_head",
+    "named": true,
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gox_close_head",
+            "named": true
+          },
+          {
+            "type": "gox_implicit_close_head",
+            "named": true
+          }
+        ]
+      },
+      "content": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_comment",
+            "named": true
+          },
+          {
+            "type": "gox_container_head",
+            "named": true
+          },
+          {
+            "type": "gox_doctype",
+            "named": true
+          },
+          {
+            "type": "gox_erroneous_close_head",
+            "named": true
+          },
+          {
+            "type": "gox_head",
+            "named": true
+          },
+          {
+            "type": "gox_plain_text",
+            "named": true
+          },
+          {
+            "type": "gox_raw_head",
+            "named": true
+          },
+          {
+            "type": "gox_script_head",
+            "named": true
+          },
+          {
+            "type": "gox_self_closing_head",
+            "named": true
+          },
+          {
+            "type": "gox_space_filler",
+            "named": true
+          },
+          {
+            "type": "gox_style_head",
+            "named": true
+          },
+          {
+            "type": "gox_tilde",
+            "named": true
+          },
+          {
+            "type": "gox_tilde_comment",
+            "named": true
+          },
+          {
+            "type": "gox_tilde_proxy",
+            "named": true
+          },
+          {
+            "type": "gox_void_head",
+            "named": true
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "gox_open_head",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "gox_doctype",
     "named": true,
     "fields": {},
@@ -1721,46 +1817,16 @@
     "type": "gox_element",
     "named": true,
     "fields": {
-      "close": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "gox_close_head",
-            "named": true
-          },
-          {
-            "type": "gox_implicit_close_head",
-            "named": true
-          }
-        ]
-      },
       "content": {
-        "multiple": true,
-        "required": false,
+        "multiple": false,
+        "required": true,
         "types": [
           {
-            "type": "gox_comment",
-            "named": true
-          },
-          {
-            "type": "gox_doctype",
-            "named": true
-          },
-          {
-            "type": "gox_element",
-            "named": true
-          },
-          {
-            "type": "gox_erroneous_close_head",
+            "type": "gox_container_head",
             "named": true
           },
           {
             "type": "gox_head",
-            "named": true
-          },
-          {
-            "type": "gox_plain_text",
             "named": true
           },
           {
@@ -1776,37 +1842,11 @@
             "named": true
           },
           {
-            "type": "gox_space_filler",
-            "named": true
-          },
-          {
             "type": "gox_style_head",
             "named": true
           },
           {
-            "type": "gox_tilde",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_comment",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_proxy",
-            "named": true
-          },
-          {
             "type": "gox_void_head",
-            "named": true
-          }
-        ]
-      },
-      "open": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "gox_open_head",
             "named": true
           }
         ]
@@ -1871,11 +1911,11 @@
             "named": true
           },
           {
-            "type": "gox_doctype",
+            "type": "gox_container_head",
             "named": true
           },
           {
-            "type": "gox_element",
+            "type": "gox_doctype",
             "named": true
           },
           {
