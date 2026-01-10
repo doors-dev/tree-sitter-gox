@@ -262,7 +262,9 @@ export default grammar(Go, {
           field('value', $.gox_func),
           alias(')', $.gox_redundant)
         ),
-        field('value', $._gox_attr_value),
+        seq('(', field('value', $._expression), ')'),
+        field('value', $.type_conversion_expression),
+        field('value', $.nil),
       ),
     ),
     _gox_attr_value: $ => choice($.nil, $.parenthesized_expression, $.type_conversion_expression),

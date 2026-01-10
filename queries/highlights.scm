@@ -30,11 +30,10 @@
   ] @punctuation.special)
 
 (gox_attr
-  (parenthesized_expression
     [
       "("
       ")"
-    ] @punctuation.special))
+    ] @punctuation.special)
 
 (gox_tilde_job
   [
