@@ -8317,7 +8317,7 @@
         }
       ]
     },
-    "_gox_composite_arg": {
+    "gox_composite_arg": {
       "type": "CHOICE",
       "members": [
         {
@@ -8463,7 +8463,33 @@
         },
         {
           "type": "SYMBOL",
+          "name": "gox_tilde_proxy"
+        },
+        {
+          "type": "SYMBOL",
           "name": "gox_tilde_comment"
+        }
+      ]
+    },
+    "gox_tilde_proxy": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "~>"
+          },
+          "named": true,
+          "value": "gox_tilde_marker"
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "gox_composite_arg"
+          }
         }
       ]
     },
@@ -8500,7 +8526,7 @@
                     "type": "ALIAS",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_gox_composite_arg"
+                      "name": "gox_composite_arg"
                     },
                     "named": true,
                     "value": "gox_tilde_job"
@@ -8520,36 +8546,6 @@
                   }
                 ]
               }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "IMMEDIATE_TOKEN",
-                    "content": {
-                      "type": "STRING",
-                      "value": ">"
-                    }
-                  },
-                  "named": true,
-                  "value": "gox_tilde_marker"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "body",
-                  "content": {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_gox_composite_arg"
-                    },
-                    "named": true,
-                    "value": "gox_tilde_proxy"
-                  }
-                }
-              ]
             },
             {
               "type": "FIELD",

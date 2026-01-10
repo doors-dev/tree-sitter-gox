@@ -14,8 +14,14 @@
 
 (gox_attr_name) @tag.attribute
 
-(gox_tilde
-  (gox_tilde_marker) @punctuation.special)
+(gox_tilde_marker) @punctuation.special
+
+(gox_composite_arg
+  [
+    "("
+    ")"
+  ] @punctuation.special
+)
 
 (gox_attr_mod
   [
@@ -29,12 +35,6 @@
       "("
       ")"
     ] @punctuation.special))
-
-(gox_tilde_proxy
-  [
-    "("
-    ")"
-  ] @punctuation.special)
 
 (gox_tilde_job
   [
@@ -53,7 +53,6 @@
     "("
     ")"
   ] @punctuation.special)
-
 
 (gox_redundant) @comment.warning
 

@@ -1382,6 +1382,10 @@
             "named": true
           },
           {
+            "type": "gox_tilde_proxy",
+            "named": true
+          },
+          {
             "type": "gox_void_head",
             "named": true
           }
@@ -1538,6 +1542,26 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "gox_composite_arg",
+    "named": true,
+    "fields": {
+      "arg": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gox_multi_arg",
+            "named": true
+          },
+          {
+            "type": "gox_single_arg",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1768,6 +1792,10 @@
             "named": true
           },
           {
+            "type": "gox_tilde_proxy",
+            "named": true
+          },
+          {
             "type": "gox_void_head",
             "named": true
           }
@@ -1888,6 +1916,10 @@
           },
           {
             "type": "gox_tilde_comment",
+            "named": true
+          },
+          {
+            "type": "gox_tilde_proxy",
             "named": true
           },
           {
@@ -2304,10 +2336,6 @@
           {
             "type": "gox_tilde_literal_value",
             "named": true
-          },
-          {
-            "type": "gox_tilde_proxy",
-            "named": true
           }
         ]
       }
@@ -2549,20 +2577,26 @@
     "type": "gox_tilde_proxy",
     "named": true,
     "fields": {
-      "arg": {
+      "body": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
-            "type": "gox_multi_arg",
-            "named": true
-          },
-          {
-            "type": "gox_single_arg",
+            "type": "gox_composite_arg",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "gox_tilde_marker",
+          "named": true
+        }
+      ]
     }
   },
   {

@@ -291,7 +291,7 @@ export default grammar(Go, {
         optional(','),
       )
     ),
-    _gox_composite_arg: $ => choice(
+    gox_composite_arg: $ => choice(
       field("arg", alias($.composite_literal, $.gox_single_arg)),
       $._gox_arg,
     ),
@@ -322,7 +322,12 @@ export default grammar(Go, {
     ),
     _gox_tilde: $ => choice(
       $.gox_tilde,
+      $.gox_tilde_proxy,
       $.gox_tilde_comment,
+    ),
+    gox_tilde_proxy: $=>seq(
+      alias('~>', $.gox_tilde_marker),
+      field('body', $.gox_composite_arg)
     ),
     gox_tilde: $ => seq(
       alias('~', $.gox_tilde_marker),
@@ -332,12 +337,11 @@ export default grammar(Go, {
           choice(
             $.gox_tilde_if,
             $.gox_tilde_for,
-            alias($._gox_composite_arg, $.gox_tilde_job),
+            alias($.gox_composite_arg, $.gox_tilde_job),
             alias($._gox_literal_value, $.gox_tilde_literal_value),
             $.gox_tilde_block,
           ),
         ),
-        seq(alias(token.immediate('>'), $.gox_tilde_marker), field('body', alias($._gox_composite_arg, $.gox_tilde_proxy))),
         field('body', $.gox_func),
         seq(
           alias('(', $.gox_redundant),
