@@ -7911,10 +7911,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_gox_class_attr"
-        },
-        {
-          "type": "SYMBOL",
           "name": "gox_bool_attr"
         },
         {
@@ -7929,115 +7925,6 @@
         {
           "type": "SYMBOL",
           "name": "comment"
-        }
-      ]
-    },
-    "_gox_class_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "gox_class_attr"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_class_literal_attr"
-        }
-      ]
-    },
-    "gox_class_attr": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[Cc][Ll][Aa][Ss][Ss]"
-          },
-          "named": true,
-          "value": "gox_attr_name"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "="
-          },
-          "named": true,
-          "value": "gox_attr_eq"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "value",
-              "content": {
-                "type": "SYMBOL",
-                "name": "gox_func"
-              }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "gox_func"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
-            },
-            {
-              "type": "FIELD",
-              "name": "value",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_gox_attr_value"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "gox_class_literal_attr": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "PATTERN",
-            "value": "[Cc][Ll][Aa][Ss][Ss]"
-          },
-          "named": true,
-          "value": "gox_attr_name"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "="
-          },
-          "named": true,
-          "value": "gox_attr_assign"
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_gox_literal_value"
-          }
         }
       ]
     },

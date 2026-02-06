@@ -229,28 +229,9 @@ export default grammar(Go, {
     _gox_attr: $ => choice(
       $.gox_attr,
       $.gox_literal_attr,
-      $._gox_class_attr,
       $.gox_bool_attr,
       alias($._gox_arg, $.gox_attr_mod),
       $.comment,
-    ),
-    _gox_class_attr: $ => choice(
-      $.gox_class_attr,
-      $.gox_class_literal_attr,
-    ),
-    gox_class_attr: $ => seq(
-      alias(/[Cc][Ll][Aa][Ss][Ss]/, $.gox_attr_name),
-      alias('=', $.gox_attr_eq),
-      choice(
-        field('value', $.gox_func),
-        seq('(', field('value', $.gox_func), ')'),
-        field('value', $._gox_attr_value),
-      ),
-    ),
-    gox_class_literal_attr: $ => seq(
-      alias(/[Cc][Ll][Aa][Ss][Ss]/, $.gox_attr_name),
-      alias('=', $.gox_attr_assign),
-      field('value', $._gox_literal_value),
     ),
     gox_attr: $ => seq(
       field('name', $.gox_attr_name),
