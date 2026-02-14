@@ -157,7 +157,6 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
     array_back(&scanner->tags)->type == RAW    ? "</:"    :
                                                   NULL;
     if (!end_delimiter) {
-        fprintf(stderr, "fatal: end_delimiter is NULL\n");
         abort();
     }
 
