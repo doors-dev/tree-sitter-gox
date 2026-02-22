@@ -1265,14 +1265,10 @@
       },
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "_expression",
-            "named": true
-          },
-          {
-            "type": "gox_func",
+            "type": "gox_single_arg",
             "named": true
           }
         ]
@@ -1280,14 +1276,22 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "gox_attr_assign",
           "named": true
         },
         {
+          "type": "gox_lparen",
+          "named": true
+        },
+        {
           "type": "gox_redundant",
+          "named": true
+        },
+        {
+          "type": "gox_rparen",
           "named": true
         }
       ]
@@ -1297,7 +1301,7 @@
     "type": "gox_attr_mod",
     "named": true,
     "fields": {
-      "arg": {
+      "value": {
         "multiple": false,
         "required": false,
         "types": [
@@ -1311,6 +1315,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "gox_lparen",
+          "named": true
+        },
+        {
+          "type": "gox_rparen",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1370,6 +1388,10 @@
             "named": true
           },
           {
+            "type": "gox_tilde_block",
+            "named": true
+          },
+          {
             "type": "gox_tilde_comment",
             "named": true
           },
@@ -1383,46 +1405,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "gox_bool_attr",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "gox_attr_name",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "false",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "gox_attr_assign",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1446,26 +1428,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "gox_composite_arg",
-    "named": true,
-    "fields": {
-      "arg": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "gox_multi_arg",
-            "named": true
-          },
-          {
-            "type": "gox_single_arg",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -1536,6 +1498,10 @@
           },
           {
             "type": "gox_tilde",
+            "named": true
+          },
+          {
+            "type": "gox_tilde_block",
             "named": true
           },
           {
@@ -1859,6 +1825,10 @@
             "named": true
           },
           {
+            "type": "gox_tilde_block",
+            "named": true
+          },
+          {
             "type": "gox_tilde_comment",
             "named": true
           },
@@ -1882,58 +1852,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "gox_literal_attr",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "gox_attr_name",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "float_literal",
-            "named": true
-          },
-          {
-            "type": "imaginary_literal",
-            "named": true
-          },
-          {
-            "type": "int_literal",
-            "named": true
-          },
-          {
-            "type": "interpreted_string_literal",
-            "named": true
-          },
-          {
-            "type": "raw_string_literal",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "gox_attr_assign",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1973,14 +1891,6 @@
           },
           {
             "type": "gox_attr_mod",
-            "named": true
-          },
-          {
-            "type": "gox_bool_attr",
-            "named": true
-          },
-          {
-            "type": "gox_literal_attr",
             "named": true
           }
         ]
@@ -2106,14 +2016,6 @@
           {
             "type": "gox_attr_mod",
             "named": true
-          },
-          {
-            "type": "gox_bool_attr",
-            "named": true
-          },
-          {
-            "type": "gox_literal_attr",
-            "named": true
           }
         ]
       },
@@ -2146,55 +2048,56 @@
   {
     "type": "gox_single_arg",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "literal_value",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "array_type",
-            "named": true
-          },
-          {
-            "type": "generic_type",
-            "named": true
-          },
-          {
-            "type": "implicit_length_array_type",
-            "named": true
-          },
-          {
-            "type": "map_type",
-            "named": true
-          },
-          {
-            "type": "qualified_type",
-            "named": true
-          },
-          {
-            "type": "slice_type",
-            "named": true
-          },
-          {
-            "type": "struct_type",
-            "named": true
-          },
-          {
-            "type": "type_identifier",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "composite_literal",
+          "named": true
+        },
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "gox_func",
+          "named": true
+        },
+        {
+          "type": "imaginary_literal",
+          "named": true
+        },
+        {
+          "type": "int_literal",
+          "named": true
+        },
+        {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "rune_literal",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2237,16 +2140,16 @@
     "type": "gox_tilde",
     "named": true,
     "fields": {
-      "body": {
+      "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "gox_func",
+            "type": "gox_multi_arg",
             "named": true
           },
           {
-            "type": "gox_tilde_block",
+            "type": "gox_single_arg",
             "named": true
           },
           {
@@ -2255,14 +2158,6 @@
           },
           {
             "type": "gox_tilde_if",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_job",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_literal_value",
             "named": true
           }
         ]
@@ -2273,7 +2168,15 @@
       "required": true,
       "types": [
         {
+          "type": "gox_lparen",
+          "named": true
+        },
+        {
           "type": "gox_redundant",
+          "named": true
+        },
+        {
+          "type": "gox_rparen",
           "named": true
         },
         {
@@ -2300,10 +2203,14 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "gox_redundant",
+          "named": true
+        },
+        {
+          "type": "gox_tilde_marker",
           "named": true
         }
       ]
@@ -2359,6 +2266,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "gox_lparen",
+          "named": true
+        },
+        {
+          "type": "gox_rparen",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2422,6 +2343,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "gox_lparen",
+          "named": true
+        },
+        {
+          "type": "gox_rparen",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2451,10 +2386,10 @@
     }
   },
   {
-    "type": "gox_tilde_job",
+    "type": "gox_tilde_proxy",
     "named": true,
     "fields": {
-      "arg": {
+      "value": {
         "multiple": false,
         "required": false,
         "types": [
@@ -2468,58 +2403,23 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "gox_tilde_literal_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "float_literal",
-          "named": true
-        },
-        {
-          "type": "imaginary_literal",
-          "named": true
-        },
-        {
-          "type": "int_literal",
-          "named": true
-        },
-        {
-          "type": "interpreted_string_literal",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "gox_tilde_proxy",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "gox_composite_arg",
-            "named": true
-          }
-        ]
-      }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "gox_lparen",
+          "named": true
+        },
+        {
+          "type": "gox_redundant",
+          "named": true
+        },
+        {
+          "type": "gox_rparen",
+          "named": true
+        },
         {
           "type": "gox_tilde_marker",
           "named": true
@@ -2545,14 +2445,6 @@
           },
           {
             "type": "gox_attr_mod",
-            "named": true
-          },
-          {
-            "type": "gox_bool_attr",
-            "named": true
-          },
-          {
-            "type": "gox_literal_attr",
             "named": true
           }
         ]
@@ -4279,6 +4171,10 @@
     "named": true
   },
   {
+    "type": "gox_lparen",
+    "named": true
+  },
+  {
     "type": "gox_open_head_beg",
     "named": true
   },
@@ -4292,6 +4188,10 @@
   },
   {
     "type": "gox_redundant",
+    "named": true
+  },
+  {
+    "type": "gox_rparen",
     "named": true
   },
   {

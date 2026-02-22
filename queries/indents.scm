@@ -64,26 +64,12 @@
 
 (gox_self_closing_head_end) @indent.branch
 
-(gox_tilde_job
-  "("
+(_
+  (gox_lparen)
 ) @indent.begin
 
-(gox_tilde_job
-  "("
-  ")" @indent.end @indent.branch)
+(_
+  (gox_lparen)
+  (gox_rparen) @indent.end @indent.branch
+) 
 
-(gox_composite_arg
-  "("
-) @indent.begin
-
-(gox_composite_arg
-  "("
-  ")" @indent.end @indent.branch)
-
-(gox_attr_mod
-  "("
-) @indent.begin
-
-(gox_attr_mod
-  "("
-  ")" @indent.end @indent.branch)

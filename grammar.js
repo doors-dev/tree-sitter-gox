@@ -105,22 +105,15 @@ export default grammar(Go, {
       field('parameters', $.parameter_list),
       field('body', optional($.gox_block)),
     )),
-
     gox_elem_func_literal: $ => seq(
       'elem',
       field('parameters', $.parameter_list),
       field('body', $.gox_block),
     ),
-
     gox_elem_function_type: $ => prec.right(seq(
       'elem',
       field('parameters', $.parameter_list),
     )),
-
-    _gox_paren_expression: $ => choice(
-      $.parenthesized_expression,
-      seq('(', $.gox_func, ')'),
-    ),
     gox_element: $ => field('content', $._gox_head),
     _gox_base_content: $ => choice(
       $._gox_head,
@@ -228,132 +221,54 @@ export default grammar(Go, {
     gox_text: _ => /([^<>{}\s~])([^<>{}~]*[^<>{}~\s])?/,
     _gox_attr: $ => choice(
       $.gox_attr,
-      $.gox_literal_attr,
-      $.gox_bool_attr,
-      alias($._gox_arg, $.gox_attr_mod),
+      alias($._gox_multi_arg, $.gox_attr_mod),
       $.comment,
     ),
     gox_attr: $ => seq(
       field('name', $.gox_attr_name),
-      alias('=', $.gox_attr_assign),
-      choice(
-        field('value', $.gox_func),
-        seq(
-          alias('(', $.gox_redundant),
-          field('value', $.gox_func),
-          alias(')', $.gox_redundant)
-        ),
-        seq('(', field('value', $._expression), ')'),
-        field('value', $.type_conversion_expression),
-        field('value', $.nil),
-      ),
-    ),
-    _gox_attr_value: $ => choice($.nil, $.parenthesized_expression, $.type_conversion_expression),
-    gox_literal_attr: $ => seq(
-      field('name', $.gox_attr_name),
-      alias('=', $.gox_attr_assign),
-      field('value', $._gox_literal_value),
-    ),
-    gox_bool_attr: $ => seq(
-      field('name', $.gox_attr_name),
       optional(seq(
         alias('=', $.gox_attr_assign),
-        field('value', choice($.true, $.false)),
+        $._gox_single_literal_arg,
       )),
     ),
     gox_attr_name: _ => /[A-Za-z_:][A-Za-z0-9._:-]*/,
-    gox_multi_arg: $ => choice(
-      seq(
-        $.variadic_argument,
-        optional(','),
-      ),
-      seq(
-        choice($._expression, $.variadic_argument),
-        repeat1(seq(',', choice($._expression, $.variadic_argument))),
-        optional(','),
-      )
-    ),
-    gox_composite_arg: $ => choice(
-      field("arg", alias($.composite_literal, $.gox_single_arg)),
-      $._gox_arg,
-    ),
-    _gox_arg: $ => choice(
-      seq(
-        '(',
-        optional(seq(
-          field("arg", alias($._expression, $.gox_single_arg)),
-          optional(','),
-        )),
-        ')'
-      ),
-      seq(
-        '(',
-        field("arg", $.gox_multi_arg),
-        ')',
-      ),
-    ),
-    _gox_literal_value: $ => choice(
-      $._string_literal,
-      $.int_literal,
-      $.float_literal,
-      $.imaginary_literal,
-    ),
-    gox_func: $ => seq(
-      'func',
-      field('body', $.block),
-    ),
     _gox_tilde: $ => choice(
       $.gox_tilde,
       $.gox_tilde_proxy,
       $.gox_tilde_comment,
+      $.gox_tilde_block,
     ),
     gox_tilde_proxy: $ => seq(
       alias('~>', $.gox_tilde_marker),
-      field('body', $.gox_composite_arg)
+      $._gox_multi_literal_arg,
     ),
     gox_tilde: $ => seq(
       alias('~', $.gox_tilde_marker),
       choice(
-        field(
-          "body",
-          choice(
-            $.gox_tilde_if,
-            $.gox_tilde_for,
-            alias($.gox_composite_arg, $.gox_tilde_job),
-            alias($._gox_literal_value, $.gox_tilde_literal_value),
-            $.gox_tilde_block,
-          ),
-        ),
-        field('body', $.gox_func),
-        seq(
-          alias('(', $.gox_redundant),
-          field('body', $.gox_func),
-          alias(')', $.gox_redundant)
-        ),
+        field('value', $.gox_tilde_if),
+        field('value', $.gox_tilde_for),
+        $._gox_multi_literal_arg,
       ),
     ),
     gox_tilde_comment: $ => seq(
       alias('~', $.gox_tilde_marker),
       field('comment', $.comment),
     ),
-    gox_tilde_block: $ => choice(seq(
-      '{',
-      field('body', optional($.statement_list)),
-      '}',
-    ), seq(
-      alias('(', $.gox_redundant),
-      '{',
-      field('body', optional($.statement_list)),
-      '}',
-      alias(')', $.gox_redundant),
-    )),
-    gox_block: $ => seq(
-      '{',
-      field('content', repeat($._gox_content)),
-      '}',
-    ),
+    gox_tilde_block: $ => seq(
+      alias('~', $.gox_tilde_marker),
+      choice(seq(
+        '{',
+        field('body', optional($.statement_list)),
+        '}',
+      ), seq(
+        alias('(', $.gox_redundant),
+        '{',
+        field('body', optional($.statement_list)),
+        '}',
+        alias(')', $.gox_redundant),
+      ))),
     gox_tilde_if: $ => seq(
-      '(',
+      alias('(', $.gox_lparen),
       $._gox_tilde_if,
     ),
     gox_tilde_if_setup: $ => seq(
@@ -367,12 +282,12 @@ export default grammar(Go, {
     _gox_tilde_if: $ => seq(
       field("setup", $.gox_tilde_if_setup),
       choice(
-        seq(field('consequence', $.gox_block), ')'),
+        seq(field('consequence', $.gox_block), alias(')', $.gox_rparen)),
         seq(
           field('consequence', $.gox_block),
           'else',
           choice(
-            seq(field('alternative', $.gox_block), ')'),
+            seq(field('alternative', $.gox_block), alias(')', $.gox_rparen)),
             field('alternative', alias($._gox_tilde_if, $.gox_tilde_if)),
           ),
         )
@@ -382,13 +297,80 @@ export default grammar(Go, {
       optional(choice($._expression, $.for_clause, $.range_clause))
     ),
     gox_tilde_for: $ => seq(
-      '(',
+      alias('(', $.gox_lparen),
       field(
         'setup',
         $.gox_tilde_for_setup,
       ),
       field('body', $.gox_block),
-      ')',
+      alias(')', $.gox_rparen),
+    ),
+    gox_block: $ => seq(
+      '{',
+      field('content', repeat($._gox_content)),
+      '}',
+    ),
+    _gox_multi_arg: $ => choice(
+      $._gox_single_arg,
+      seq(
+        alias('(', $.gox_lparen),
+        field("value", $.gox_multi_arg),
+        alias(')', $.gox_rparen),
+      ),
+    ),
+    _gox_multi_literal_arg: $ => choice(
+      $._gox_single_literal_arg,
+      seq(
+        alias('(', $.gox_lparen),
+        field("value", $.gox_multi_arg),
+        alias(')', $.gox_rparen),
+      ),
+    ),
+    _gox_single_arg: $ => seq(
+      alias('(', $.gox_lparen),
+      optional(seq(
+        field("value", alias($._expression, $.gox_single_arg)),
+        optional(','),
+      )),
+      alias(')', $.gox_rparen),
+    ),
+    _gox_single_literal_arg: $ => choice(
+      choice(
+        field('value', alias($.gox_literal, $.gox_single_arg)),
+        seq(
+          alias('(', $.gox_redundant),
+          field('value', alias($.gox_literal, $.gox_single_arg)),
+          alias(')', $.gox_redundant)
+        ),
+      ),
+      $._gox_single_arg,
+    ),
+    gox_multi_arg: $ => choice(
+      seq(
+        $.variadic_argument,
+        optional(','),
+      ),
+      seq(
+        choice($._expression, $.variadic_argument),
+        repeat1(seq(',', choice($._expression, $.variadic_argument))),
+        optional(','),
+      )
+    ),
+    gox_literal: $ => prec(1, choice(
+      $._string_literal,
+      $.int_literal,
+      $.float_literal,
+      $.imaginary_literal,
+      $.rune_literal,
+      $.true,
+      $.false,
+      $.gox_func,
+      $.composite_literal,
+      $.nil,
+    )),
+    gox_func: $ => seq(
+      'func',
+      field('body', $.block),
     ),
   }
 });

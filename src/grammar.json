@@ -7180,32 +7180,6 @@
         ]
       }
     },
-    "_gox_paren_expression": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "parenthesized_expression"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "SYMBOL",
-              "name": "gox_func"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        }
-      ]
-    },
     "gox_element": {
       "type": "FIELD",
       "name": "content",
@@ -7906,18 +7880,10 @@
           "name": "gox_attr"
         },
         {
-          "type": "SYMBOL",
-          "name": "gox_literal_attr"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_bool_attr"
-        },
-        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "_gox_arg"
+            "name": "_gox_multi_arg"
           },
           "named": true,
           "value": "gox_attr_mod"
@@ -7929,156 +7895,6 @@
       ]
     },
     "gox_attr": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "gox_attr_name"
-          }
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "="
-          },
-          "named": true,
-          "value": "gox_attr_assign"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "value",
-              "content": {
-                "type": "SYMBOL",
-                "name": "gox_func"
-              }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "STRING",
-                    "value": "("
-                  },
-                  "named": true,
-                  "value": "gox_redundant"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "gox_func"
-                  }
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "STRING",
-                    "value": ")"
-                  },
-                  "named": true,
-                  "value": "gox_redundant"
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_expression"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
-            },
-            {
-              "type": "FIELD",
-              "name": "value",
-              "content": {
-                "type": "SYMBOL",
-                "name": "type_conversion_expression"
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "value",
-              "content": {
-                "type": "SYMBOL",
-                "name": "nil"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "_gox_attr_value": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "nil"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "parenthesized_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_conversion_expression"
-        }
-      ]
-    },
-    "gox_literal_attr": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "gox_attr_name"
-          }
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "="
-          },
-          "named": true,
-          "value": "gox_attr_assign"
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_gox_literal_value"
-          }
-        }
-      ]
-    },
-    "gox_bool_attr": {
       "type": "SEQ",
       "members": [
         {
@@ -8105,21 +7921,8 @@
                   "value": "gox_attr_assign"
                 },
                 {
-                  "type": "FIELD",
-                  "name": "value",
-                  "content": {
-                    "type": "CHOICE",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "true"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "false"
-                      }
-                    ]
-                  }
+                  "type": "SYMBOL",
+                  "name": "_gox_single_literal_arg"
                 }
               ]
             },
@@ -8133,6 +7936,659 @@
     "gox_attr_name": {
       "type": "PATTERN",
       "value": "[A-Za-z_:][A-Za-z0-9._:-]*"
+    },
+    "_gox_tilde": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "gox_tilde"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_tilde_proxy"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_tilde_comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gox_tilde_block"
+        }
+      ]
+    },
+    "gox_tilde_proxy": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "~>"
+          },
+          "named": true,
+          "value": "gox_tilde_marker"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_gox_multi_literal_arg"
+        }
+      ]
+    },
+    "gox_tilde": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "~"
+          },
+          "named": true,
+          "value": "gox_tilde_marker"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
+                "type": "SYMBOL",
+                "name": "gox_tilde_if"
+              }
+            },
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
+                "type": "SYMBOL",
+                "name": "gox_tilde_for"
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_gox_multi_literal_arg"
+            }
+          ]
+        }
+      ]
+    },
+    "gox_tilde_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "~"
+          },
+          "named": true,
+          "value": "gox_tilde_marker"
+        },
+        {
+          "type": "FIELD",
+          "name": "comment",
+          "content": {
+            "type": "SYMBOL",
+            "name": "comment"
+          }
+        }
+      ]
+    },
+    "gox_tilde_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "~"
+          },
+          "named": true,
+          "value": "gox_tilde_marker"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "{"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "body",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "statement_list"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "}"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "body",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "statement_list"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "}"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "gox_tilde_if": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          },
+          "named": true,
+          "value": "gox_lparen"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_gox_tilde_if"
+        }
+      ]
+    },
+    "gox_tilde_if_setup": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "initializer",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_simple_statement"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": ";"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        }
+      ]
+    },
+    "_gox_tilde_if": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "setup",
+          "content": {
+            "type": "SYMBOL",
+            "name": "gox_tilde_if_setup"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "consequence",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "gox_block"
+                  }
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  },
+                  "named": true,
+                  "value": "gox_rparen"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "consequence",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "gox_block"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "else"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "FIELD",
+                          "name": "alternative",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "gox_block"
+                          }
+                        },
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "STRING",
+                            "value": ")"
+                          },
+                          "named": true,
+                          "value": "gox_rparen"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "alternative",
+                      "content": {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_gox_tilde_if"
+                        },
+                        "named": true,
+                        "value": "gox_tilde_if"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "gox_tilde_for_setup": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "for"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "for_clause"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "range_clause"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "gox_tilde_for": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          },
+          "named": true,
+          "value": "gox_lparen"
+        },
+        {
+          "type": "FIELD",
+          "name": "setup",
+          "content": {
+            "type": "SYMBOL",
+            "name": "gox_tilde_for_setup"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "gox_block"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          },
+          "named": true,
+          "value": "gox_rparen"
+        }
+      ]
+    },
+    "gox_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "FIELD",
+          "name": "content",
+          "content": {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_gox_content"
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_gox_multi_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_gox_single_arg"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              },
+              "named": true,
+              "value": "gox_lparen"
+            },
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
+                "type": "SYMBOL",
+                "name": "gox_multi_arg"
+              }
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": ")"
+              },
+              "named": true,
+              "value": "gox_rparen"
+            }
+          ]
+        }
+      ]
+    },
+    "_gox_multi_literal_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_gox_single_literal_arg"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "("
+              },
+              "named": true,
+              "value": "gox_lparen"
+            },
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
+                "type": "SYMBOL",
+                "name": "gox_multi_arg"
+              }
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": ")"
+              },
+              "named": true,
+              "value": "gox_rparen"
+            }
+          ]
+        }
+      ]
+    },
+    "_gox_single_arg": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "("
+          },
+          "named": true,
+          "value": "gox_lparen"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    },
+                    "named": true,
+                    "value": "gox_single_arg"
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": ")"
+          },
+          "named": true,
+          "value": "gox_rparen"
+        }
+      ]
+    },
+    "_gox_single_literal_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "value",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "gox_literal"
+                },
+                "named": true,
+                "value": "gox_single_arg"
+              }
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "gox_literal"
+                    },
+                    "named": true,
+                    "value": "gox_single_arg"
+                  }
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": ")"
+                  },
+                  "named": true,
+                  "value": "gox_redundant"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_gox_single_arg"
+        }
+      ]
     },
     "gox_multi_arg": {
       "type": "CHOICE",
@@ -8215,125 +8671,54 @@
         }
       ]
     },
-    "gox_composite_arg": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "arg",
-          "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "composite_literal"
-            },
-            "named": true,
-            "value": "gox_single_arg"
+    "gox_literal": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_string_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "int_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "float_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "imaginary_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rune_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "true"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "false"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "gox_func"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "composite_literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "nil"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_gox_arg"
-        }
-      ]
-    },
-    "_gox_arg": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "FIELD",
-                      "name": "arg",
-                      "content": {
-                        "type": "ALIAS",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "_expression"
-                        },
-                        "named": true,
-                        "value": "gox_single_arg"
-                      }
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "STRING",
-                          "value": ","
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "FIELD",
-              "name": "arg",
-              "content": {
-                "type": "SYMBOL",
-                "name": "gox_multi_arg"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        }
-      ]
-    },
-    "_gox_literal_value": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_string_literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "int_literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "float_literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "imaginary_literal"
-        }
-      ]
+        ]
+      }
     },
     "gox_func": {
       "type": "SEQ",
@@ -8349,474 +8734,6 @@
             "type": "SYMBOL",
             "name": "block"
           }
-        }
-      ]
-    },
-    "_gox_tilde": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "gox_tilde"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_tilde_proxy"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "gox_tilde_comment"
-        }
-      ]
-    },
-    "gox_tilde_proxy": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "~>"
-          },
-          "named": true,
-          "value": "gox_tilde_marker"
-        },
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "gox_composite_arg"
-          }
-        }
-      ]
-    },
-    "gox_tilde": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          },
-          "named": true,
-          "value": "gox_tilde_marker"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "gox_tilde_if"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "gox_tilde_for"
-                  },
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "gox_composite_arg"
-                    },
-                    "named": true,
-                    "value": "gox_tilde_job"
-                  },
-                  {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_gox_literal_value"
-                    },
-                    "named": true,
-                    "value": "gox_tilde_literal_value"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "gox_tilde_block"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "SYMBOL",
-                "name": "gox_func"
-              }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "STRING",
-                    "value": "("
-                  },
-                  "named": true,
-                  "value": "gox_redundant"
-                },
-                {
-                  "type": "FIELD",
-                  "name": "body",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "gox_func"
-                  }
-                },
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "STRING",
-                    "value": ")"
-                  },
-                  "named": true,
-                  "value": "gox_redundant"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    "gox_tilde_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          },
-          "named": true,
-          "value": "gox_tilde_marker"
-        },
-        {
-          "type": "FIELD",
-          "name": "comment",
-          "content": {
-            "type": "SYMBOL",
-            "name": "comment"
-          }
-        }
-      ]
-    },
-    "gox_tilde_block": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "{"
-            },
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "statement_list"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "}"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "STRING",
-                "value": "("
-              },
-              "named": true,
-              "value": "gox_redundant"
-            },
-            {
-              "type": "STRING",
-              "value": "{"
-            },
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "statement_list"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "}"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "STRING",
-                "value": ")"
-              },
-              "named": true,
-              "value": "gox_redundant"
-            }
-          ]
-        }
-      ]
-    },
-    "gox_block": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "FIELD",
-          "name": "content",
-          "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_gox_content"
-            }
-          }
-        },
-        {
-          "type": "STRING",
-          "value": "}"
-        }
-      ]
-    },
-    "gox_tilde_if": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_gox_tilde_if"
-        }
-      ]
-    },
-    "gox_tilde_if_setup": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "if"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "initializer",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_simple_statement"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ";"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "FIELD",
-          "name": "condition",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_expression"
-          }
-        }
-      ]
-    },
-    "_gox_tilde_if": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "setup",
-          "content": {
-            "type": "SYMBOL",
-            "name": "gox_tilde_if_setup"
-          }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "consequence",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "gox_block"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "consequence",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "gox_block"
-                  }
-                },
-                {
-                  "type": "STRING",
-                  "value": "else"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "FIELD",
-                          "name": "alternative",
-                          "content": {
-                            "type": "SYMBOL",
-                            "name": "gox_block"
-                          }
-                        },
-                        {
-                          "type": "STRING",
-                          "value": ")"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "FIELD",
-                      "name": "alternative",
-                      "content": {
-                        "type": "ALIAS",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "_gox_tilde_if"
-                        },
-                        "named": true,
-                        "value": "gox_tilde_if"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    "gox_tilde_for_setup": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "for"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "for_clause"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "range_clause"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
-    "gox_tilde_for": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "FIELD",
-          "name": "setup",
-          "content": {
-            "type": "SYMBOL",
-            "name": "gox_tilde_for_setup"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "gox_block"
-          }
-        },
-        {
-          "type": "STRING",
-          "value": ")"
         }
       ]
     }
