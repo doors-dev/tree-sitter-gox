@@ -64,12 +64,17 @@
 
 (gox_self_closing_head_end) @indent.branch
 
-(_
+(
   (gox_lparen)
+  .
+  [(gox_single_arg) (gox_multi_arg)]
 ) @indent.begin
 
-(_
+(
   (gox_lparen)
+  .
+  [(gox_single_arg) (gox_multi_arg)]
+  .
   (gox_rparen) @indent.end @indent.branch
-) 
+)
 
