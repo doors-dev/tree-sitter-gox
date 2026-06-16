@@ -237,6 +237,7 @@ export default grammar(Go, {
       $.gox_tilde_proxy,
       $.gox_tilde_comment,
       $.gox_tilde_block,
+      $.gox_tilde_snippet,
     ),
     gox_tilde_proxy: $ => seq(
       alias('~>', $.gox_tilde_marker),
@@ -254,19 +255,19 @@ export default grammar(Go, {
       alias('~', $.gox_tilde_marker),
       field('comment', $.comment),
     ),
+    gox_tilde_snippet: $ => seq(
+      alias('~~', $.gox_tilde_marker),
+      field('body', optional($.statement_list)),
+      alias('~~', $.gox_tilde_marker),
+    ),
     gox_tilde_block: $ => seq(
       alias('~', $.gox_tilde_marker),
-      choice(seq(
+      seq(
         '{',
         field('body', optional($.statement_list)),
         '}',
-      ), seq(
-        alias('(', $.gox_redundant),
-        '{',
-        field('body', optional($.statement_list)),
-        '}',
-        alias(')', $.gox_redundant),
-      ))),
+      ),
+    ),
     gox_tilde_if: $ => seq(
       alias('(', $.gox_lparen),
       $._gox_tilde_if,
@@ -329,7 +330,7 @@ export default grammar(Go, {
     _gox_single_arg: $ => seq(
       alias('(', $.gox_lparen),
       optional(seq(
-        field("value", alias($._expression, $.gox_single_arg)),
+        field("value", alias($._gox_expression, $.gox_single_arg)),
         optional(','),
       )),
       alias(')', $.gox_rparen),
@@ -351,8 +352,8 @@ export default grammar(Go, {
         optional(','),
       ),
       seq(
-        choice($._expression, $.variadic_argument),
-        repeat1(seq(',', choice($._expression, $.variadic_argument))),
+        choice($._gox_expression, $.variadic_argument),
+        repeat1(seq(',', choice($._gox_expression, $.variadic_argument))),
         optional(','),
       )
     ),
@@ -371,6 +372,15 @@ export default grammar(Go, {
     gox_func: $ => seq(
       'func',
       field('body', $.block),
+    ),
+    _gox_expression: $ => choice(
+      $._expression,
+      $.gox_expression,
+    ),
+    gox_expression: $ => seq(
+      '{',
+      field('body', optional($.statement_list)),
+      '}',
     ),
   }
 });

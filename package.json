@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-gox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Gox grammar for tree-sitter",
   "repository": "https://github.com/doors-dev/tree-sitter-gox",
   "license": "MIT",

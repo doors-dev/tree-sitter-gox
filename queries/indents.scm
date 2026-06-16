@@ -1,5 +1,10 @@
 ; inherits: go
 
+(gox_expression) @indent.begin
+
+(gox_expression
+  "}" @indent.branch @indent.end)
+
 (gox_block) @indent.begin
 
 (gox_block
@@ -64,17 +69,18 @@
 
 (gox_self_closing_head_end) @indent.branch
 
-(
-  (gox_lparen)
+((gox_lparen)
   .
-  [(gox_single_arg) (gox_multi_arg)]
-) @indent.begin
+  [
+    (gox_single_arg)
+    (gox_multi_arg)
+  ]) @indent.begin
 
-(
-  (gox_lparen)
+((gox_lparen)
   .
-  [(gox_single_arg) (gox_multi_arg)]
+  [
+    (gox_single_arg)
+    (gox_multi_arg)
+  ]
   .
-  (gox_rparen) @indent.end @indent.branch
-)
-
+  (gox_rparen) @indent.end @indent.branch)
