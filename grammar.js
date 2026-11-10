@@ -28,6 +28,11 @@ export default grammar(Go, {
     $.gox_plain_text,
   ],
 
+  // Go 1.27 generic methods (mirrors tree-sitter-go PR #198; drop once released upstream).
+  conflicts: ($, original) => original.concat([
+    [$.type_parameter_declaration, $._simple_type],
+  ]),
+
   reserved: {
     global: $ => [
       'elem',
@@ -98,10 +103,22 @@ export default grammar(Go, {
       field('body', optional($.gox_block)),
     )),
 
+    // Go 1.27 generic methods (mirrors tree-sitter-go PR #198; drop once released upstream).
+    method_declaration: $ => prec.right(1, seq(
+      'func',
+      field('receiver', $.parameter_list),
+      field('name', $._field_identifier),
+      field('type_parameters', optional($.type_parameter_list)),
+      field('parameters', $.parameter_list),
+      field('result', optional(choice($.parameter_list, $._simple_type))),
+      field('body', optional($.block)),
+    )),
+
     gox_elem_method_declaration: $ => prec.right(1, seq(
       'elem',
       field('receiver', $.parameter_list),
       field('name', $._field_identifier),
+      field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
       field('body', optional($.gox_block)),
     )),
