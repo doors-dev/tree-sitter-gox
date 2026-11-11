@@ -34,9 +34,7 @@ export default grammar(Go, {
   ]),
 
   reserved: {
-    global: $ => [
-      'elem',
-    ],
+    global: (_, original) => original.concat(['elem']),
   },
 
 
