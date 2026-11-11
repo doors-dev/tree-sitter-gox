@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-gox
-        VERSION "0.1.0"
+        VERSION "0.3.0"
         DESCRIPTION "Gox grammar for tree-sitter"
         HOMEPAGE_URL "https://github.com/doors-dev/tree-sitter-gox"
         LANGUAGES C)
