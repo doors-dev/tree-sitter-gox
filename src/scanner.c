@@ -219,7 +219,7 @@ static bool scan_implicit_end_tag(Scanner *scanner, TSLexer *lexer) {
         // Otherwise, dig deeper and queue implicit end tags (to be nice in
         // the case of malformed HTML)
         for (unsigned i = scanner->tags.size; i > 0; i--) {
-            if (scanner->tags.contents[i - 1].type == next_tag.type) {
+            if (tag_eq(&scanner->tags.contents[i - 1], &next_tag)) {
                 pop_tag(scanner);
                 lexer->result_symbol = IMPLICIT_END_TAG;
                 tag_free(&next_tag);

@@ -278,10 +278,11 @@ static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
 };
 
 static const TagType TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[] = {
-    ADDRESS,  ARTICLE,    ASIDE,  BLOCKQUOTE, DETAILS, DIV, DL,
-    FIELDSET, FIGCAPTION, FIGURE, FOOTER,     FORM,    H1,  H2,
-    H3,       H4,         H5,     H6,         HEADER,  HR,  MAIN,
-    NAV,      OL,         P,      PRE,        SECTION,
+    ADDRESS,  ARTICLE,    ASIDE,  BLOCKQUOTE, DETAILS, DIALOG,  DIV,
+    DL,       FIELDSET,   FIGCAPTION, FIGURE, FOOTER,  FORM,    H1,
+    H2,       H3,         H4,     H5,         H6,      HEADER,  HGROUP,
+    HR,       MAIN,       MENU,   NAV,        OL,      P,       PRE,
+    SECTION,  TABLE,      UL,
 };
 
 static TagType tag_type_for_name(const String *tag_name) {
@@ -357,7 +358,7 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
             return child != DT && child != DD;
 
         case P:
-            for (int i = 0; i < 26; i++) {
+            for (size_t i = 0; i < sizeof(TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS) / sizeof(TagType); i++) {
                 if (child == TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[i]) {
                     return false;
                 }
@@ -371,6 +372,9 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
         case RT:
         case RP:
             return child != RB && child != RT && child != RP;
+
+        case OPTION:
+            return child != OPTION && child != OPTGROUP;
 
         case OPTGROUP:
             return child != OPTGROUP;
