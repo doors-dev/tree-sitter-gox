@@ -292,11 +292,12 @@ static bool scan_end_tag_name(Scanner *scanner, TSLexer *lexer) {
 static bool scan_self_closing_tag_delimiter(Scanner *scanner, TSLexer *lexer) {
     advance(lexer);
     if (lexer->lookahead == '>') {
-        advance(lexer);
-        if (scanner->tags.size > 0) {
-            pop_tag(scanner);
-            lexer->result_symbol = SELF_CLOSING_TAG_DELIMITER;
+        if (scanner->tags.size == 0) {
+            return false;
         }
+        advance(lexer);
+        pop_tag(scanner);
+        lexer->result_symbol = SELF_CLOSING_TAG_DELIMITER;
         return true;
     }
     return false;
