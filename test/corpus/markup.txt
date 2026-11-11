@@ -1198,6 +1198,195 @@ elem Doc() {
           (gox_head_end))))))
 
 ==================
+markup implicit close of paragraph by menu, dialog and hgroup
+==================
+
+package p
+
+elem Doc() {
+	<p>a<menu></menu>
+	<p>b<dialog></dialog>
+	<p>c<hgroup></hgroup>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close of paragraph by list items and summary
+==================
+
+package p
+
+elem Doc() {
+	<ul><li><p>a<li>b</ul>
+	<dl><dt><p>c<dd><p>d<dt>e</dl>
+	<details><p>f<summary>g</summary></details>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
 markup implicit close of option by option and optgroup
 ==================
 
@@ -1254,13 +1443,13 @@ elem Doc() {
           (gox_head_end))))))
 
 ==================
-markup mismatched custom close tag is ignored
+markup option keeps inline children and optgroup closes optgroup
 ==================
 
 package p
 
 elem Doc() {
-	<div><my-a>x</my-b>y</my-a></div>
+	<select><optgroup><option><span>a</span><option>b<optgroup><option>c</select>
 }
 
 ---
@@ -1282,10 +1471,140 @@ elem Doc() {
             (gox_open_head_beg)
             (gox_head_name)
             (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_plain_text)
+              (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))
+            (gox_implicit_close_head))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close of option and optgroup by hr
+==================
+
+package p
+
+elem Doc() {
+	<select><optgroup><option>a<hr><option>b</select>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
           (gox_plain_text)
-          (gox_erroneous_close_head
-            (gox_erroneous_close_head_name))
-          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup mismatched custom close tag is ignored
+==================
+
+package p
+
+elem Doc() {
+	<div><my-a><span>x</my-b>y</my-a></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_erroneous_close_head
+              (gox_erroneous_close_head_name))
+            (gox_plain_text)
+            (gox_implicit_close_head))
           (gox_close_head
             (gox_close_head_beg)
             (gox_head_name)

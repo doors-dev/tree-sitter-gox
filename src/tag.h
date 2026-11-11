@@ -278,11 +278,11 @@ static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
 };
 
 static const TagType TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[] = {
-    ADDRESS,  ARTICLE,    ASIDE,  BLOCKQUOTE, DETAILS, DIALOG,  DIV,
-    DL,       FIELDSET,   FIGCAPTION, FIGURE, FOOTER,  FORM,    H1,
-    H2,       H3,         H4,     H5,         H6,      HEADER,  HGROUP,
-    HR,       MAIN,       MENU,   NAV,        OL,      P,       PRE,
-    SECTION,  TABLE,      UL,
+    ADDRESS,  ARTICLE,    ASIDE,  BLOCKQUOTE, DD,      DETAILS, DIALOG,
+    DIV,      DL,         DT,     FIELDSET,   FIGCAPTION, FIGURE, FOOTER,
+    FORM,     H1,         H2,     H3,         H4,      H5,      H6,
+    HEADER,   HGROUP,     HR,     LI,         MAIN,    MENU,    NAV,
+    OL,       P,          PRE,    SECTION,    SUMMARY, TABLE,   UL,
 };
 
 static TagType tag_type_for_name(const String *tag_name) {
@@ -378,10 +378,10 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
             return child != RB && child != RT && child != RP;
 
         case OPTION:
-            return child != OPTION && child != OPTGROUP;
+            return child != OPTION && child != OPTGROUP && child != HR;
 
         case OPTGROUP:
-            return child != OPTGROUP;
+            return child != OPTGROUP && child != HR;
 
         case THEAD:
         case TBODY:
