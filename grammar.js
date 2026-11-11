@@ -114,6 +114,18 @@ export default grammar(Go, {
       field('body', optional($.block)),
     )),
 
+    // Go 1.27 generic method values: `x.f.M[A, B]`, `get().M[[]T]` (go/ast IndexListExpr).
+    // prec.right: `x.M[A](v)` stays a call_expression with type_arguments.
+    // prec.dynamic(-7): loses wherever the single index or type_instantiation_expression
+    // parses (-6 flips `x.f.M[Pair[A, B]]`).
+    index_expression: ($, original) => choice(
+      original,
+      prec.right(7, prec.dynamic(-7, seq(
+        field('operand', $._expression),
+        field('type_arguments', $.type_arguments),
+      ))),
+    ),
+
     gox_elem_method_declaration: $ => seq(
       'elem',
       field('receiver', $.parameter_list),
