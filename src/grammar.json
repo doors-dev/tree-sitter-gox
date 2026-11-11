@@ -7037,134 +7037,126 @@
       }
     },
     "gox_elem_function_declaration": {
-      "type": "PREC_RIGHT",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "elem"
-          },
-          {
-            "type": "FIELD",
-            "name": "name",
-            "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "type_parameters",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "type_parameter_list"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "parameters",
-            "content": {
-              "type": "SYMBOL",
-              "name": "parameter_list"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "body",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "gox_block"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "elem"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
           }
-        ]
-      }
+        },
+        {
+          "type": "FIELD",
+          "name": "type_parameters",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_parameter_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "SYMBOL",
+            "name": "parameter_list"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "gox_block"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
     },
     "gox_elem_method_declaration": {
-      "type": "PREC_RIGHT",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "elem"
-          },
-          {
-            "type": "FIELD",
-            "name": "receiver",
-            "content": {
-              "type": "SYMBOL",
-              "name": "parameter_list"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "name",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_field_identifier"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "type_parameters",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "type_parameter_list"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "parameters",
-            "content": {
-              "type": "SYMBOL",
-              "name": "parameter_list"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "body",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "gox_block"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "elem"
+        },
+        {
+          "type": "FIELD",
+          "name": "receiver",
+          "content": {
+            "type": "SYMBOL",
+            "name": "parameter_list"
           }
-        ]
-      }
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_field_identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type_parameters",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "type_parameter_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "SYMBOL",
+            "name": "parameter_list"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "gox_block"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
     },
     "gox_elem_func_literal": {
       "type": "SEQ",
@@ -7192,25 +7184,21 @@
       ]
     },
     "gox_elem_function_type": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "elem"
-          },
-          {
-            "type": "FIELD",
-            "name": "parameters",
-            "content": {
-              "type": "SYMBOL",
-              "name": "parameter_list"
-            }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "elem"
+        },
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "SYMBOL",
+            "name": "parameter_list"
           }
-        ]
-      }
+        }
+      ]
     },
     "gox_element": {
       "type": "FIELD",
@@ -7899,10 +7887,6 @@
           "value": ">"
         }
       ]
-    },
-    "gox_text": {
-      "type": "PATTERN",
-      "value": "([^<>{}\\s~])([^<>{}~]*[^<>{}~\\s])?"
     },
     "_gox_attr": {
       "type": "CHOICE",

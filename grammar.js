@@ -95,13 +95,13 @@ export default grammar(Go, {
       $.gox_element,
     ),
 
-    gox_elem_function_declaration: $ => prec.right(1, seq(
+    gox_elem_function_declaration: $ => seq(
       'elem',
       field('name', $.identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
       field('body', optional($.gox_block)),
-    )),
+    ),
 
     // Go 1.27 generic methods (mirrors tree-sitter-go PR #198; drop once released upstream).
     method_declaration: $ => prec.right(1, seq(
@@ -114,23 +114,23 @@ export default grammar(Go, {
       field('body', optional($.block)),
     )),
 
-    gox_elem_method_declaration: $ => prec.right(1, seq(
+    gox_elem_method_declaration: $ => seq(
       'elem',
       field('receiver', $.parameter_list),
       field('name', $._field_identifier),
       field('type_parameters', optional($.type_parameter_list)),
       field('parameters', $.parameter_list),
       field('body', optional($.gox_block)),
-    )),
+    ),
     gox_elem_func_literal: $ => seq(
       'elem',
       field('parameters', $.parameter_list),
       field('body', $.gox_block),
     ),
-    gox_elem_function_type: $ => prec.right(seq(
+    gox_elem_function_type: $ => seq(
       'elem',
       field('parameters', $.parameter_list),
-    )),
+    ),
     gox_element: $ => field('content', $._gox_head),
     _gox_base_content: $ => choice(
       $._gox_head,
@@ -235,7 +235,6 @@ export default grammar(Go, {
       $.gox_erroneous_close_head_name,
       '>',
     ),
-    gox_text: _ => /([^<>{}\s~])([^<>{}~]*[^<>{}~\s])?/,
     _gox_attr: $ => choice(
       $.gox_attr,
       alias($._gox_multi_arg, $.gox_attr_mod),
