@@ -346,6 +346,10 @@ static inline bool tag_eq(const Tag *self, const Tag *other) {
     return true;
 }
 
+static inline bool tag_starts_table_part(TagType type) {
+    return type == CAPTION || type == COL || type == COLGROUP || type == THEAD || type == TBODY || type == TFOOT;
+}
+
 static bool tag_can_contain(Tag *self, const Tag *other) {
     TagType child = other->type;
 
@@ -379,12 +383,18 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
         case OPTGROUP:
             return child != OPTGROUP;
 
-        case TR:
-            return child != TR;
+        case THEAD:
+        case TBODY:
+        case TFOOT:
+            return !tag_starts_table_part(child);
 
+        case TR:
+            return child != TR && !tag_starts_table_part(child);
+
+        case CAPTION:
         case TD:
         case TH:
-            return child != TD && child != TH && child != TR;
+            return child != TD && child != TH && child != TR && !tag_starts_table_part(child);
 
         default:
             return true;
