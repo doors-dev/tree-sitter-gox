@@ -7986,10 +7986,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "gox_tilde_block"
-        },
-        {
-          "type": "SYMBOL",
           "name": "gox_tilde_snippet"
         }
       ]
@@ -8109,49 +8105,6 @@
           },
           "named": true,
           "value": "gox_tilde_marker"
-        }
-      ]
-    },
-    "gox_tilde_block": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "~"
-          },
-          "named": true,
-          "value": "gox_tilde_marker"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "{"
-            },
-            {
-              "type": "FIELD",
-              "name": "body",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "statement_list"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "STRING",
-              "value": "}"
-            }
-          ]
         }
       ]
     },
@@ -8730,10 +8683,6 @@
           },
           {
             "type": "SYMBOL",
-            "name": "gox_func"
-          },
-          {
-            "type": "SYMBOL",
             "name": "composite_literal"
           },
           {
@@ -8742,23 +8691,6 @@
           }
         ]
       }
-    },
-    "gox_func": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "func"
-        },
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "block"
-          }
-        }
-      ]
     },
     "_gox_expression": {
       "type": "CHOICE",

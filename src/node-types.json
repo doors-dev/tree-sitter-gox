@@ -1388,10 +1388,6 @@
             "named": true
           },
           {
-            "type": "gox_tilde_block",
-            "named": true
-          },
-          {
             "type": "gox_tilde_comment",
             "named": true
           },
@@ -1502,10 +1498,6 @@
           },
           {
             "type": "gox_tilde",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_block",
             "named": true
           },
           {
@@ -1773,22 +1765,6 @@
     }
   },
   {
-    "type": "gox_func",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "block",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "gox_head",
     "named": true,
     "fields": {
@@ -1856,10 +1832,6 @@
           },
           {
             "type": "gox_tilde",
-            "named": true
-          },
-          {
-            "type": "gox_tilde_block",
             "named": true
           },
           {
@@ -2102,10 +2074,6 @@
         {
           "type": "gox_expression",
           "named": true
-        },
-        {
-          "type": "gox_func",
-          "named": true
         }
       ]
     }
@@ -2189,32 +2157,6 @@
           "type": "gox_rparen",
           "named": true
         },
-        {
-          "type": "gox_tilde_marker",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "gox_tilde_block",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "statement_list",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
         {
           "type": "gox_tilde_marker",
           "named": true

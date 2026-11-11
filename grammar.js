@@ -253,7 +253,6 @@ export default grammar(Go, {
       $.gox_tilde,
       $.gox_tilde_proxy,
       $.gox_tilde_comment,
-      $.gox_tilde_block,
       $.gox_tilde_snippet,
     ),
     gox_tilde_proxy: $ => seq(
@@ -276,14 +275,6 @@ export default grammar(Go, {
       alias('~~', $.gox_tilde_marker),
       field('body', optional($.statement_list)),
       alias('~~', $.gox_tilde_marker),
-    ),
-    gox_tilde_block: $ => seq(
-      alias('~', $.gox_tilde_marker),
-      seq(
-        '{',
-        field('body', optional($.statement_list)),
-        '}',
-      ),
     ),
     gox_tilde_if: $ => seq(
       alias('(', $.gox_lparen),
@@ -382,14 +373,9 @@ export default grammar(Go, {
       $.rune_literal,
       $.true,
       $.false,
-      $.gox_func,
       $.composite_literal,
       $.nil,
     )),
-    gox_func: $ => seq(
-      'func',
-      field('body', $.block),
-    ),
     _gox_expression: $ => choice(
       $._expression,
       $.gox_expression,
