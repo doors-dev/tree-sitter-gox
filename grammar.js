@@ -113,7 +113,7 @@ export default grammar(Go, {
     )),
 
     // Go 1.27 generic method values: `x.f.M[A, B]`, `get().M[[]T]` (go/ast IndexListExpr).
-    // prec.right: `x.M[A](v)` stays a call_expression with type_arguments.
+    // prec.right: `x.f.M[A, B](v)` stays a call_expression with type_arguments.
     // prec.dynamic(-7): loses wherever the single index or type_instantiation_expression
     // parses (-6 flips `x.f.M[Pair[A, B]]`).
     index_expression: ($, original) => choice(
