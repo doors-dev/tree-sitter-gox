@@ -1,0 +1,1336 @@
+==================
+generics: method with one type parameter
+==================
+
+package p
+
+func (r R) M[T any]() {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    receiver: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    name: (field_identifier)
+    type_parameters: (type_parameter_list
+      (type_parameter_declaration
+        name: (identifier)
+        type: (type_constraint
+          (type_identifier))))
+    parameters: (parameter_list)
+    body: (block)))
+
+==================
+generics: method with several type parameters and results
+==================
+
+package p
+
+func (c Cache) Get[K comparable, V any](k K) (v V, ok bool) { return }
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (type_identifier)))
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (type_identifier))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier))
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (block
+      (statement_list
+        (return_statement)))))
+
+==================
+generics: method type parameters sharing one constraint
+==================
+
+package p
+
+func (r R) Swap[T, U any](a T, b U) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (identifier)
+        (type_constraint
+          (type_identifier))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier))
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (block)))
+
+==================
+generics: method type parameter with tilde union constraint
+==================
+
+package p
+
+func (f Fmt) Num[T ~int | ~float64](v T) string { return "" }
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (negated_type
+            (type_identifier))
+          (negated_type
+            (type_identifier)))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (type_identifier)
+    (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (interpreted_string_literal)))))))
+
+==================
+generics: method type parameter with core type constraint
+==================
+
+package p
+
+func (s Seq) Find[S ~[]E, E comparable](xs S, v E) int { return 0 }
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (negated_type
+            (slice_type
+              (type_identifier)))))
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (type_identifier))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier))
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (type_identifier)
+    (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (int_literal)))))))
+
+==================
+generics: method type parameter with pointer constraint
+==================
+
+package p
+
+func (r R) New[P *C](p P) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (pointer_type
+            (type_identifier)))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (block)))
+
+==================
+generics: method type parameter with inline interface constraint
+==================
+
+package p
+
+func (r R) Show[T interface{ String() string }](v T) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (interface_type
+            (method_elem
+              (field_identifier)
+              (parameter_list)
+              (type_identifier))))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (block)))
+
+==================
+generics: generic receiver with own method type parameters
+==================
+
+package p
+
+func (l *List[E]) Map[F any](f func(E) F) *List[F] { return nil }
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (pointer_type
+          (generic_type
+            (type_identifier)
+            (type_arguments
+              (type_elem
+                (type_identifier)))))))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (type_identifier))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (function_type
+          (parameter_list
+            (parameter_declaration
+              (type_identifier)))
+          (type_identifier))))
+    (pointer_type
+      (generic_type
+        (type_identifier)
+        (type_arguments
+          (type_elem
+            (type_identifier)))))
+    (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (nil)))))))
+
+==================
+generics: method without type parameters keeps old shape
+==================
+
+package p
+
+func (r R) Name() string { return r.name }
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (parameter_list)
+    (type_identifier)
+    (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (selector_expression
+              (identifier)
+              (field_identifier))))))))
+
+==================
+generics: elem method with one type parameter
+==================
+
+package p
+
+elem (c Card) Row[T fmt.Stringer](v T) {
+	<li>~(v.String())</li>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    receiver: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    name: (field_identifier)
+    type_parameters: (type_parameter_list
+      (type_parameter_declaration
+        name: (identifier)
+        type: (type_constraint
+          (qualified_type
+            package: (package_identifier)
+            name: (type_identifier)))))
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          value: (gox_single_arg
+            (call_expression
+              function: (selector_expression
+                operand: (identifier)
+                field: (field_identifier))
+              arguments: (argument_list)))
+          (gox_rparen))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+generics: elem method on generic receiver with several type parameters
+==================
+
+package p
+
+elem (l List[T]) Each[U any, V comparable](f func(T) U) {
+	<ul></ul>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_elem
+              (type_identifier))))))
+    (field_identifier)
+    (type_parameter_list
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (type_identifier)))
+      (type_parameter_declaration
+        (identifier)
+        (type_constraint
+          (type_identifier))))
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (function_type
+          (parameter_list
+            (parameter_declaration
+              (type_identifier)))
+          (type_identifier))))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+generics: method value with two type arguments on selector chain
+==================
+
+package p
+
+func f() {
+	fn := h.C.To[int, string]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (index_expression
+              operand: (selector_expression
+                operand: (selector_expression
+                  operand: (identifier)
+                  field: (field_identifier))
+                field: (field_identifier))
+              type_arguments: (type_arguments
+                (type_elem
+                  (type_identifier))
+                (type_elem
+                  (type_identifier))))))))))
+
+==================
+generics: method value on call result with slice type argument
+==================
+
+package p
+
+func f() {
+	use(get().To[[]T])
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (expression_statement
+          (call_expression
+            (identifier)
+            (argument_list
+              (index_expression
+                (selector_expression
+                  (call_expression
+                    (identifier)
+                    (argument_list))
+                  (field_identifier))
+                (type_arguments
+                  (type_elem
+                    (slice_type
+                      (type_identifier))))))))))))
+
+==================
+generics: method value on composite literal with func type argument
+==================
+
+package p
+
+func f() {
+	use(App{}.N[func()])
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (expression_statement
+          (call_expression
+            (identifier)
+            (argument_list
+              (index_expression
+                (selector_expression
+                  (composite_literal
+                    (type_identifier)
+                    (literal_value))
+                  (field_identifier))
+                (type_arguments
+                  (type_elem
+                    (function_type
+                      (parameter_list))))))))))))
+
+==================
+generics: method value with pointer to slice type argument
+==================
+
+package p
+
+func f() {
+	fn = h.C.To[*[]int]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (index_expression
+              (selector_expression
+                (selector_expression
+                  (identifier)
+                  (field_identifier))
+                (field_identifier))
+              (type_arguments
+                (type_elem
+                  (pointer_type
+                    (slice_type
+                      (type_identifier))))))))))))
+
+==================
+generics: method value on indexed operand
+==================
+
+package p
+
+func f() any {
+	return xs[i].M[A, B]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    result: (type_identifier)
+    body: (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (index_expression
+              operand: (selector_expression
+                operand: (index_expression
+                  operand: (identifier)
+                  index: (identifier))
+                field: (field_identifier))
+              type_arguments: (type_arguments
+                (type_elem
+                  (type_identifier))
+                (type_elem
+                  (type_identifier))))))))))
+
+==================
+generics: method value with generic type argument
+==================
+
+package p
+
+func f() {
+	_ = h.C.To[Pair[A, B], int]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (assignment_statement
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (index_expression
+              operand: (selector_expression
+                operand: (selector_expression
+                  operand: (identifier)
+                  field: (field_identifier))
+                field: (field_identifier))
+              type_arguments: (type_arguments
+                (type_elem
+                  (generic_type
+                    type: (type_identifier)
+                    type_arguments: (type_arguments
+                      (type_elem
+                        (type_identifier))
+                      (type_elem
+                        (type_identifier)))))
+                (type_elem
+                  (type_identifier))))))))))
+
+==================
+generics: method value as binary operand
+==================
+
+package p
+
+func f() {
+	ok := x.f.M[A, B] != nil
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (short_var_declaration
+          (expression_list
+            (identifier))
+          (expression_list
+            (binary_expression
+              (index_expression
+                (selector_expression
+                  (selector_expression
+                    (identifier)
+                    (field_identifier))
+                  (field_identifier))
+                (type_arguments
+                  (type_elem
+                    (type_identifier))
+                  (type_elem
+                    (type_identifier))))
+              (nil))))))))
+
+==================
+generics: method value in keyed composite literal element
+==================
+
+package p
+
+func f() {
+	_ = Handlers{On: x.f.M[A, B]}
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (composite_literal
+              (type_identifier)
+              (literal_value
+                (keyed_element
+                  (literal_element
+                    (identifier))
+                  (literal_element
+                    (index_expression
+                      (selector_expression
+                        (selector_expression
+                          (identifier)
+                          (field_identifier))
+                        (field_identifier))
+                      (type_arguments
+                        (type_elem
+                          (type_identifier))
+                        (type_elem
+                          (type_identifier))))))))))))))
+
+==================
+generics: called method with two type arguments
+==================
+
+package p
+
+func f() {
+	h.C.To[int, string](v)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (expression_statement
+          (call_expression
+            function: (selector_expression
+              operand: (selector_expression
+                operand: (identifier)
+                field: (field_identifier))
+              field: (field_identifier))
+            type_arguments: (type_arguments
+              (type_elem
+                (type_identifier))
+              (type_elem
+                (type_identifier)))
+            arguments: (argument_list
+              (identifier))))))))
+
+==================
+generics: called method on call result with slice type argument
+==================
+
+package p
+
+func f() {
+	get().To[[]T](v)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (expression_statement
+          (call_expression
+            (selector_expression
+              (call_expression
+                (identifier)
+                (argument_list))
+              (field_identifier))
+            (type_arguments
+              (type_elem
+                (slice_type
+                  (type_identifier))))
+            (argument_list
+              (identifier))))))))
+
+==================
+generics: called method in defer
+==================
+
+package p
+
+func f() {
+	defer x.f.M[A, B]()
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (defer_statement
+          (call_expression
+            (selector_expression
+              (selector_expression
+                (identifier)
+                (field_identifier))
+              (field_identifier))
+            (type_arguments
+              (type_elem
+                (type_identifier))
+              (type_elem
+                (type_identifier)))
+            (argument_list)))))))
+
+==================
+generics: two segment called method with several arguments
+==================
+
+package p
+
+func f() {
+	state, err := parent.newField[[]string](ctx, name)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (short_var_declaration
+          (expression_list
+            (identifier)
+            (identifier))
+          (expression_list
+            (call_expression
+              (selector_expression
+                (identifier)
+                (field_identifier))
+              (type_arguments
+                (type_elem
+                  (slice_type
+                    (type_identifier))))
+              (argument_list
+                (identifier)
+                (identifier)))))))))
+
+==================
+generics: single bracket call reads as indexed function call
+==================
+
+package p
+
+func f() {
+	x.f.M[A](v)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (expression_statement
+          (call_expression
+            (index_expression
+              (selector_expression
+                (selector_expression
+                  (identifier)
+                  (field_identifier))
+                (field_identifier))
+              (identifier))
+            (argument_list
+              (identifier))))))))
+
+==================
+generics: plain single index unchanged
+==================
+
+package p
+
+func f() {
+	_ = a[i]
+	_ = m[k]
+	_ = s.f[i]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (index_expression
+              (identifier)
+              (identifier))))
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (index_expression
+              (identifier)
+              (identifier))))
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (index_expression
+              (selector_expression
+                (identifier)
+                (field_identifier))
+              (identifier))))))))
+
+==================
+generics: method value with one identifier type argument stays single index
+==================
+
+package p
+
+func f() {
+	fn := h.C.To[int]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (index_expression
+              operand: (selector_expression
+                operand: (selector_expression
+                  operand: (identifier)
+                  field: (field_identifier))
+                field: (field_identifier))
+              index: (identifier))))))))
+
+==================
+generics: single index holding generic type instantiation
+==================
+
+package p
+
+func f() {
+	_ = x.f.M[Pair[A, B]]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (assignment_statement
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (index_expression
+              operand: (selector_expression
+                operand: (selector_expression
+                  operand: (identifier)
+                  field: (field_identifier))
+                field: (field_identifier))
+              index: (type_instantiation_expression
+                type: (type_identifier)
+                (type_identifier)
+                (type_identifier)))))))))
+
+==================
+generics: qualified function with one type argument stays single index
+==================
+
+package p
+
+func f() {
+	_ = pkg.F[int]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (index_expression
+              (selector_expression
+                (identifier)
+                (field_identifier))
+              (identifier))))))))
+
+==================
+generics: plain generic function instantiation unchanged
+==================
+
+package p
+
+func f() {
+	_ = F[int, string]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (type_instantiation_expression
+              (type_identifier)
+              (type_identifier)
+              (type_identifier))))))))
+
+==================
+generics: qualified generic function instantiation unchanged
+==================
+
+package p
+
+func f() {
+	_ = pkg.F[int, string]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (type_instantiation_expression
+              (qualified_type
+                (package_identifier)
+                (type_identifier))
+              (type_identifier)
+              (type_identifier))))))))
+
+==================
+generics: multi index with type shaped arguments on plain name unchanged
+==================
+
+package p
+
+func f() {
+	_ = F[[]int, map[K]V]
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (block
+      (statement_list
+        (assignment_statement
+          (expression_list
+            (identifier))
+          (expression_list
+            (type_instantiation_expression
+              (type_identifier)
+              (slice_type
+                (type_identifier))
+              (map_type
+                (type_identifier)
+                (type_identifier)))))))))
+
+==================
+generics: called method inside markup tilde
+==================
+
+package p
+
+elem (p Page) Main() {
+	~(p.rows.Render[[]Row](p.data))
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (parameter_list)
+    (gox_block
+      (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        (gox_single_arg
+          (call_expression
+            (selector_expression
+              (selector_expression
+                (identifier)
+                (field_identifier))
+              (field_identifier))
+            (type_arguments
+              (type_elem
+                (slice_type
+                  (type_identifier))))
+            (argument_list
+              (selector_expression
+                (identifier)
+                (field_identifier)))))
+        (gox_rparen)))))
+
+==================
+generics: method value as markup attribute value
+==================
+
+package p
+
+elem (p Page) Main() {
+	<button on=(p.h.Click[int, string])>Go</button>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            (gox_single_arg
+              (index_expression
+                (selector_expression
+                  (selector_expression
+                    (identifier)
+                    (field_identifier))
+                  (field_identifier))
+                (type_arguments
+                  (type_elem
+                    (type_identifier))
+                  (type_elem
+                    (type_identifier)))))
+            (gox_rparen))
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+generics: method value inside tilde proxy literal
+==================
+
+package p
+
+elem (p Page) Main() {
+	~>doors.AClick{On: p.h.Click[int, string]} <button>Go</button>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (field_identifier)
+    (parameter_list)
+    (gox_block
+      (gox_tilde_proxy
+        (gox_tilde_marker)
+        (gox_single_arg
+          (composite_literal
+            (qualified_type
+              (package_identifier)
+              (type_identifier))
+            (literal_value
+              (keyed_element
+                (literal_element
+                  (identifier))
+                (literal_element
+                  (index_expression
+                    (selector_expression
+                      (selector_expression
+                        (identifier)
+                        (field_identifier))
+                      (field_identifier))
+                    (type_arguments
+                      (type_elem
+                        (type_identifier))
+                      (type_elem
+                        (type_identifier))))))))))
+      (gox_space_filler)
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+generics: method with empty type parameter list
+:error
+==================
+
+package p
+
+func (r R) M[]() {}
+
+---
+
+
+
+==================
+generics: elem method with empty type parameter list
+:error
+==================
+
+package p
+
+elem (c Card) Row[]() {
+	<li></li>
+}
+
+---
+
+
+
+==================
+generics: method value with empty type arguments
+:error
+==================
+
+package p
+
+func f() {
+	_ = h.C.To[]
+}
+
+---
+
+

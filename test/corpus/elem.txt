@@ -1,0 +1,1891 @@
+============================================================
+elem: function declaration with markup body
+============================================================
+
+package p
+
+// Card renders a titled card.
+elem Card(title string) {
+	<div class="card">~(title)</div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (comment)
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_head_end))
+        content: (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          value: (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: function declaration with type parameters
+============================================================
+
+package p
+
+elem Grid[K comparable, V ~int | ~string](m map[K]V) {
+	<table></table>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    type_parameters: (type_parameter_list
+      (type_parameter_declaration
+        name: (identifier)
+        type: (type_constraint
+          (type_identifier)))
+      (type_parameter_declaration
+        name: (identifier)
+        type: (type_constraint
+          (negated_type
+            (type_identifier))
+          (negated_type
+            (type_identifier)))))
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (map_type
+          key: (type_identifier)
+          value: (type_identifier))))
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: declarations without body
+============================================================
+
+package p
+
+elem External(id int)
+
+elem (c *Comp) Stub()
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier))))
+  (gox_elem_method_declaration
+    receiver: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (pointer_type
+          (type_identifier))))
+    name: (field_identifier)
+    parameters: (parameter_list)))
+
+============================================================
+elem: method declaration on generic receiver
+============================================================
+
+package p
+
+elem (l *List[T]) Row(v T) {
+	<li>~(v)</li>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    receiver: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (pointer_type
+          (generic_type
+            type: (type_identifier)
+            type_arguments: (type_arguments
+              (type_elem
+                (type_identifier)))))))
+    name: (field_identifier)
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          value: (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: method declaration with type parameters
+============================================================
+
+package p
+
+elem (l List[T]) Cell[U fmt.Stringer](u U) {
+	<td>~(u.String())</td>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_method_declaration
+    receiver: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (generic_type
+          type: (type_identifier)
+          type_arguments: (type_arguments
+            (type_elem
+              (type_identifier))))))
+    name: (field_identifier)
+    type_parameters: (type_parameter_list
+      (type_parameter_declaration
+        name: (identifier)
+        type: (type_constraint
+          (qualified_type
+            package: (package_identifier)
+            name: (type_identifier)))))
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          value: (gox_single_arg
+            (call_expression
+              function: (selector_expression
+                operand: (identifier)
+                field: (field_identifier))
+              arguments: (argument_list)))
+          (gox_rparen))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: function type as parameter and result
+============================================================
+
+package p
+
+func Wrap(inner elem(n int)) elem() { return nil }
+
+type Hook func(elem())
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (gox_elem_function_type
+          parameters: (parameter_list
+            (parameter_declaration
+              name: (identifier)
+              type: (type_identifier))))))
+    result: (gox_elem_function_type
+      parameters: (parameter_list))
+    body: (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (nil))))))
+  (type_declaration
+    (type_spec
+      name: (type_identifier)
+      type: (function_type
+        parameters: (parameter_list
+          (parameter_declaration
+            type: (gox_elem_function_type
+              parameters: (parameter_list))))))))
+
+============================================================
+elem: function type in type declarations
+============================================================
+
+package p
+
+type Slot struct {
+	Body elem()
+}
+
+type Renderer elem(v string)
+
+var byName map[string]elem(ctx context.Context)
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (type_declaration
+    (type_spec
+      name: (type_identifier)
+      type: (struct_type
+        (field_declaration_list
+          (field_declaration
+            name: (field_identifier)
+            type: (gox_elem_function_type
+              parameters: (parameter_list)))))))
+  (type_declaration
+    (type_spec
+      name: (type_identifier)
+      type: (gox_elem_function_type
+        parameters: (parameter_list
+          (parameter_declaration
+            name: (identifier)
+            type: (type_identifier))))))
+  (var_declaration
+    (var_spec
+      name: (identifier)
+      type: (map_type
+        key: (type_identifier)
+        value: (gox_elem_function_type
+          parameters: (parameter_list
+            (parameter_declaration
+              name: (identifier)
+              type: (qualified_type
+                package: (package_identifier)
+                name: (type_identifier)))))))))
+
+============================================================
+elem: function type with unnamed func parameter
+============================================================
+
+package p
+
+type Slot elem(string, func(int))
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (type_declaration
+    (type_spec
+      name: (type_identifier)
+      type: (gox_elem_function_type
+        parameters: (parameter_list
+          (parameter_declaration
+            type: (type_identifier))
+          (parameter_declaration
+            type: (function_type
+              parameters: (parameter_list
+                (parameter_declaration
+                  type: (type_identifier))))))))))
+
+============================================================
+elem: func literal as callback argument
+============================================================
+
+package p
+
+elem Page() {
+	~(state.Bind(elem(v int) {
+		<b>~(v)</b>
+	}))
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (call_expression
+            function: (selector_expression
+              operand: (identifier)
+              field: (field_identifier))
+            arguments: (argument_list
+              (gox_elem_func_literal
+                parameters: (parameter_list
+                  (parameter_declaration
+                    name: (identifier)
+                    type: (type_identifier)))
+                body: (gox_block
+                  content: (gox_head
+                    open: (gox_open_head
+                      (gox_open_head_beg)
+                      name: (gox_head_name)
+                      (gox_head_end))
+                    content: (gox_tilde
+                      (gox_tilde_marker)
+                      (gox_lparen)
+                      value: (gox_single_arg
+                        (identifier))
+                      (gox_rparen))
+                    close: (gox_close_head
+                      (gox_close_head_beg)
+                      (gox_head_name)
+                      (gox_head_end))))))))
+        (gox_rparen)))))
+
+============================================================
+elem: func literal assigned in Go code
+============================================================
+
+package p
+
+func build() {
+	row := elem(name string) {
+		<li>~(name)</li>
+	}
+	use(row)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (gox_elem_func_literal
+              parameters: (parameter_list
+                (parameter_declaration
+                  name: (identifier)
+                  type: (type_identifier)))
+              body: (gox_block
+                content: (gox_head
+                  open: (gox_open_head
+                    (gox_open_head_beg)
+                    name: (gox_head_name)
+                    (gox_head_end))
+                  content: (gox_tilde
+                    (gox_tilde_marker)
+                    (gox_lparen)
+                    value: (gox_single_arg
+                      (identifier))
+                    (gox_rparen))
+                  close: (gox_close_head
+                    (gox_close_head_beg)
+                    (gox_head_name)
+                    (gox_head_end)))))))
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (identifier))))))))
+
+============================================================
+elem: func literal without body
+:error
+============================================================
+
+package p
+
+func build() {
+	row := elem(name string)
+}
+
+---
+
+
+============================================================
+elem: elem is a reserved word
+:error
+============================================================
+
+package p
+
+func f(xs []int) {
+	for _, elem := range xs {
+		use(elem)
+	}
+}
+
+---
+
+
+============================================================
+elem: markup as return value
+============================================================
+
+package p
+
+func Column(class string) gox.Comp {
+	return <div class=(class)>~(children)</div>
+}
+
+func Box() gox.Elem {
+	return (
+		<div></div>
+	)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter_declaration
+        name: (identifier)
+        type: (type_identifier)))
+    result: (qualified_type
+      package: (package_identifier)
+      name: (type_identifier))
+    body: (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (gox_element
+              content: (gox_head
+                open: (gox_open_head
+                  (gox_open_head_beg)
+                  name: (gox_head_name)
+                  attrs: (gox_attr
+                    name: (gox_attr_name)
+                    (gox_attr_assign)
+                    (gox_lparen)
+                    value: (gox_single_arg
+                      (identifier))
+                    (gox_rparen))
+                  (gox_head_end))
+                content: (gox_tilde
+                  (gox_tilde_marker)
+                  (gox_lparen)
+                  value: (gox_single_arg
+                    (identifier))
+                  (gox_rparen))
+                close: (gox_close_head
+                  (gox_close_head_beg)
+                  (gox_head_name)
+                  (gox_head_end)))))))))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    result: (qualified_type
+      package: (package_identifier)
+      name: (type_identifier))
+    body: (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (parenthesized_expression
+              (gox_element
+                content: (gox_head
+                  open: (gox_open_head
+                    (gox_open_head_beg)
+                    name: (gox_head_name)
+                    (gox_head_end))
+                  close: (gox_close_head
+                    (gox_close_head_beg)
+                    (gox_head_name)
+                    (gox_head_end)))))))))))
+
+============================================================
+elem: markup as Go operand
+============================================================
+
+package p
+
+func build() {
+	sep := <hr/>
+	use(<br>, <img src="a.png">)
+	slot := Slot{Body: <p/>}
+	ch <- <b>x</b>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (gox_element
+              content: (gox_void_head
+                (gox_open_head_beg)
+                name: (gox_head_name)
+                (gox_self_closing_head_end)))))
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (gox_element
+                content: (gox_void_head
+                  (gox_open_head_beg)
+                  name: (gox_head_name)
+                  (gox_self_closing_head_end)))
+              (gox_element
+                content: (gox_void_head
+                  (gox_open_head_beg)
+                  name: (gox_head_name)
+                  attrs: (gox_attr
+                    name: (gox_attr_name)
+                    (gox_attr_assign)
+                    value: (gox_single_arg
+                      (interpreted_string_literal
+                        (interpreted_string_literal_content))))
+                  (gox_self_closing_head_end))))))
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (composite_literal
+              type: (type_identifier)
+              body: (literal_value
+                (keyed_element
+                  key: (literal_element
+                    (identifier))
+                  value: (literal_element
+                    (gox_element
+                      content: (gox_self_closing_head
+                        (gox_open_head_beg)
+                        name: (gox_head_name)
+                        (gox_self_closing_head_end)))))))))
+        (send_statement
+          channel: (identifier)
+          value: (gox_element
+            content: (gox_head
+              open: (gox_open_head
+                (gox_open_head_beg)
+                name: (gox_head_name)
+                (gox_head_end))
+              content: (gox_plain_text)
+              close: (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))))))))
+
+============================================================
+elem: Go comparison and receive are not markup
+============================================================
+
+package p
+
+func g() {
+	ok := a < b
+	use(n <b)
+	x := i<br
+	v := <-ch
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (block
+      (statement_list
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (binary_expression
+              left: (identifier)
+              right: (identifier))))
+        (expression_statement
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list
+              (binary_expression
+                left: (identifier)
+                right: (identifier)))))
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (binary_expression
+              left: (identifier)
+              right: (identifier))))
+        (short_var_declaration
+          left: (expression_list
+            (identifier))
+          right: (expression_list
+            (unary_expression
+              operand: (identifier))))))))
+
+============================================================
+elem: markup inside Go func inside markup
+============================================================
+
+package p
+
+elem Count() {
+	~(count.Bind(func(n int) gox.Elem {
+		if n < max {
+			return <b>~(n)</b>
+		}
+		return nil
+	}))
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (call_expression
+            function: (selector_expression
+              operand: (identifier)
+              field: (field_identifier))
+            arguments: (argument_list
+              (func_literal
+                parameters: (parameter_list
+                  (parameter_declaration
+                    name: (identifier)
+                    type: (type_identifier)))
+                result: (qualified_type
+                  package: (package_identifier)
+                  name: (type_identifier))
+                body: (block
+                  (statement_list
+                    (if_statement
+                      condition: (binary_expression
+                        left: (identifier)
+                        right: (identifier))
+                      consequence: (block
+                        (statement_list
+                          (return_statement
+                            (expression_list
+                              (gox_element
+                                content: (gox_head
+                                  open: (gox_open_head
+                                    (gox_open_head_beg)
+                                    name: (gox_head_name)
+                                    (gox_head_end))
+                                  content: (gox_tilde
+                                    (gox_tilde_marker)
+                                    (gox_lparen)
+                                    value: (gox_single_arg
+                                      (identifier))
+                                    (gox_rparen))
+                                  close: (gox_close_head
+                                    (gox_close_head_beg)
+                                    (gox_head_name)
+                                    (gox_head_end)))))))))
+                    (return_statement
+                      (expression_list
+                        (nil)))))))))
+        (gox_rparen)))))
+
+============================================================
+elem: markup as tilde argument
+============================================================
+
+package p
+
+elem T() {
+	~(<button id="b">B</button>)
+	~(label, <br>)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (gox_element
+            content: (gox_head
+              open: (gox_open_head
+                (gox_open_head_beg)
+                name: (gox_head_name)
+                attrs: (gox_attr
+                  name: (gox_attr_name)
+                  (gox_attr_assign)
+                  value: (gox_single_arg
+                    (interpreted_string_literal
+                      (interpreted_string_literal_content))))
+                (gox_head_end))
+              content: (gox_plain_text)
+              close: (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))))
+        (gox_rparen))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_multi_arg
+          (identifier)
+          (gox_element
+            content: (gox_void_head
+              (gox_open_head_beg)
+              name: (gox_head_name)
+              (gox_self_closing_head_end))))
+        (gox_rparen)))))
+
+============================================================
+elem: tilde literal values
+============================================================
+
+package p
+
+elem T() {
+	~"text"
+	~42
+	~(true)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_single_arg
+          (interpreted_string_literal
+            (interpreted_string_literal_content))))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_single_arg
+          (int_literal)))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_redundant)
+        value: (gox_single_arg
+          (true))
+        (gox_redundant)))))
+
+============================================================
+elem: tilde expression arguments
+============================================================
+
+package p
+
+elem T() {
+	~(user.Name)
+	~(n, " / ", total)
+	~(parts...)
+	~()
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (selector_expression
+            operand: (identifier)
+            field: (field_identifier)))
+        (gox_rparen))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_multi_arg
+          (identifier)
+          (interpreted_string_literal
+            (interpreted_string_literal_content))
+          (identifier))
+        (gox_rparen))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_multi_arg
+          (variadic_argument
+            (identifier)))
+        (gox_rparen))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        (gox_rparen)))))
+
+============================================================
+elem: tilde GoX expression
+============================================================
+
+package p
+
+elem T() {
+	~({
+		if !ok {
+			return nil
+		}
+		return <th>~(title)</th>
+	})
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (gox_expression
+            body: (statement_list
+              (if_statement
+                condition: (unary_expression
+                  operand: (identifier))
+                consequence: (block
+                  (statement_list
+                    (return_statement
+                      (expression_list
+                        (nil))))))
+              (return_statement
+                (expression_list
+                  (gox_element
+                    content: (gox_head
+                      open: (gox_open_head
+                        (gox_open_head_beg)
+                        name: (gox_head_name)
+                        (gox_head_end))
+                      content: (gox_tilde
+                        (gox_tilde_marker)
+                        (gox_lparen)
+                        value: (gox_single_arg
+                          (identifier))
+                        (gox_rparen))
+                      close: (gox_close_head
+                        (gox_close_head_beg)
+                        (gox_head_name)
+                        (gox_head_end)))))))))
+        (gox_rparen)))))
+
+============================================================
+elem: tilde comments
+============================================================
+
+package p
+
+elem T() {
+	~// line note
+	~/* block note */
+	<p></p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde_comment
+        (gox_tilde_marker)
+        comment: (comment))
+      content: (gox_tilde_comment
+        (gox_tilde_marker)
+        comment: (comment))
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: tilde Go snippet
+============================================================
+
+package p
+
+elem T() {
+	~~
+	class := "btn"
+	~~
+	<a class=(class)></a>
+	~~~~
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde_snippet
+        (gox_tilde_marker)
+        body: (statement_list
+          (short_var_declaration
+            left: (expression_list
+              (identifier))
+            right: (expression_list
+              (interpreted_string_literal
+                (interpreted_string_literal_content)))))
+        (gox_tilde_marker))
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            value: (gox_single_arg
+              (identifier))
+            (gox_rparen))
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      content: (gox_tilde_snippet
+        (gox_tilde_marker)
+        (gox_tilde_marker)))))
+
+============================================================
+elem: tilde proxy forms
+============================================================
+
+package p
+
+elem T() {
+	~>(p.input()) ~>doors.AClick{On: h} <button>Go</button>
+	~>(a, b) ~(icon())
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde_proxy
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (call_expression
+            function: (selector_expression
+              operand: (identifier)
+              field: (field_identifier))
+            arguments: (argument_list)))
+        (gox_rparen))
+      content: (gox_space_filler)
+      content: (gox_tilde_proxy
+        (gox_tilde_marker)
+        value: (gox_single_arg
+          (composite_literal
+            type: (qualified_type
+              package: (package_identifier)
+              name: (type_identifier))
+            body: (literal_value
+              (keyed_element
+                key: (literal_element
+                  (identifier))
+                value: (literal_element
+                  (identifier)))))))
+      content: (gox_space_filler)
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_plain_text)
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      content: (gox_tilde_proxy
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_multi_arg
+          (identifier)
+          (identifier))
+        (gox_rparen))
+      content: (gox_space_filler)
+      content: (gox_tilde
+        (gox_tilde_marker)
+        (gox_lparen)
+        value: (gox_single_arg
+          (call_expression
+            function: (identifier)
+            arguments: (argument_list)))
+        (gox_rparen)))))
+
+============================================================
+elem: tilde if without else
+============================================================
+
+package p
+
+elem T() {
+	~(if ok {
+		<b>yes</b>
+	})
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_tilde_if
+          (gox_lparen)
+          setup: (gox_tilde_if_setup
+            condition: (identifier))
+          consequence: (gox_block
+            content: (gox_head
+              open: (gox_open_head
+                (gox_open_head_beg)
+                name: (gox_head_name)
+                (gox_head_end))
+              content: (gox_plain_text)
+              close: (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end))))
+          (gox_rparen))))))
+
+============================================================
+elem: tilde if with initializer and else chain
+============================================================
+
+package p
+
+elem T() {
+	~(if err := load(); err != nil {
+		<p>failed</p>
+	} else if n == 0 {
+		empty
+	} else {
+		<ul></ul>
+	})
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_tilde_if
+          (gox_lparen)
+          setup: (gox_tilde_if_setup
+            initializer: (short_var_declaration
+              left: (expression_list
+                (identifier))
+              right: (expression_list
+                (call_expression
+                  function: (identifier)
+                  arguments: (argument_list))))
+            condition: (binary_expression
+              left: (identifier)
+              right: (nil)))
+          consequence: (gox_block
+            content: (gox_head
+              open: (gox_open_head
+                (gox_open_head_beg)
+                name: (gox_head_name)
+                (gox_head_end))
+              content: (gox_plain_text)
+              close: (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end))))
+          alternative: (gox_tilde_if
+            setup: (gox_tilde_if_setup
+              condition: (binary_expression
+                left: (identifier)
+                right: (int_literal)))
+            consequence: (gox_block
+              content: (gox_plain_text))
+            alternative: (gox_block
+              content: (gox_head
+                open: (gox_open_head
+                  (gox_open_head_beg)
+                  name: (gox_head_name)
+                  (gox_head_end))
+                close: (gox_close_head
+                  (gox_close_head_beg)
+                  (gox_head_name)
+                  (gox_head_end))))
+            (gox_rparen)))))))
+
+============================================================
+elem: tilde for loops
+============================================================
+
+package p
+
+elem T() {
+	~(for i, it := range items {
+		<li>~(i, it)</li>
+	})
+	~(for i := 0; i < n; i++ {
+		<hr>
+	})
+	~(for more {
+		x
+	})
+	~(for {
+	})
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_tilde_for
+          (gox_lparen)
+          setup: (gox_tilde_for_setup
+            (range_clause
+              left: (expression_list
+                (identifier)
+                (identifier))
+              right: (identifier)))
+          body: (gox_block
+            content: (gox_head
+              open: (gox_open_head
+                (gox_open_head_beg)
+                name: (gox_head_name)
+                (gox_head_end))
+              content: (gox_tilde
+                (gox_tilde_marker)
+                (gox_lparen)
+                value: (gox_multi_arg
+                  (identifier)
+                  (identifier))
+                (gox_rparen))
+              close: (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end))))
+          (gox_rparen)))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_tilde_for
+          (gox_lparen)
+          setup: (gox_tilde_for_setup
+            (for_clause
+              initializer: (short_var_declaration
+                left: (expression_list
+                  (identifier))
+                right: (expression_list
+                  (int_literal)))
+              condition: (binary_expression
+                left: (identifier)
+                right: (identifier))
+              update: (inc_statement
+                (identifier))))
+          body: (gox_block
+            content: (gox_void_head
+              (gox_open_head_beg)
+              name: (gox_head_name)
+              (gox_self_closing_head_end)))
+          (gox_rparen)))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_tilde_for
+          (gox_lparen)
+          setup: (gox_tilde_for_setup
+            (identifier))
+          body: (gox_block
+            content: (gox_plain_text))
+          (gox_rparen)))
+      content: (gox_tilde
+        (gox_tilde_marker)
+        value: (gox_tilde_for
+          (gox_lparen)
+          setup: (gox_tilde_for_setup)
+          body: (gox_block)
+          (gox_rparen))))))
+
+============================================================
+elem: literal attribute values
+============================================================
+
+package p
+
+elem T() {
+	<input value="a" title=`raw` tabindex=0 step=0.5 im=2i ch='x' checked=true open=false form=nil>
+	<div style=Style{Color: "red"}></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_void_head
+        (gox_open_head_beg)
+        name: (gox_head_name)
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (interpreted_string_literal
+              (interpreted_string_literal_content))))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (raw_string_literal
+              (raw_string_literal_content))))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (int_literal)))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (float_literal)))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (imaginary_literal)))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (rune_literal)))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (true)))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (false)))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (nil)))
+        (gox_self_closing_head_end))
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (composite_literal
+                type: (type_identifier)
+                body: (literal_value
+                  (keyed_element
+                    key: (literal_element
+                      (identifier))
+                    value: (literal_element
+                      (interpreted_string_literal
+                        (interpreted_string_literal_content))))))))
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: expression attribute values
+============================================================
+
+package p
+
+elem T() {
+	<div class=(base + " active") id=(f.id) n=("x")></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            value: (gox_single_arg
+              (binary_expression
+                left: (identifier)
+                right: (interpreted_string_literal
+                  (interpreted_string_literal_content))))
+            (gox_rparen))
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            value: (gox_single_arg
+              (selector_expression
+                operand: (identifier)
+                field: (field_identifier)))
+            (gox_rparen))
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            (gox_redundant)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content)))
+            (gox_redundant))
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: comparison inside attribute value does not end the tag
+============================================================
+
+package p
+
+elem T() {
+	<input hidden=(n > max) min=(lo >= 0)>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_void_head
+        (gox_open_head_beg)
+        name: (gox_head_name)
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          (gox_lparen)
+          value: (gox_single_arg
+            (binary_expression
+              left: (identifier)
+              right: (identifier)))
+          (gox_rparen))
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          (gox_lparen)
+          value: (gox_single_arg
+            (binary_expression
+              left: (identifier)
+              right: (int_literal)))
+          (gox_rparen))
+        (gox_self_closing_head_end)))))
+
+============================================================
+elem: GoX expression attribute value
+============================================================
+
+package p
+
+elem T() {
+	<div role=({
+		if warn {
+			return "alert"
+		}
+		return nil
+	})></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            value: (gox_single_arg
+              (gox_expression
+                body: (statement_list
+                  (if_statement
+                    condition: (identifier)
+                    consequence: (block
+                      (statement_list
+                        (return_statement
+                          (expression_list
+                            (interpreted_string_literal
+                              (interpreted_string_literal_content)))))))
+                  (return_statement
+                    (expression_list
+                      (nil))))))
+            (gox_rparen))
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: attribute modifiers
+============================================================
+
+package p
+
+elem T() {
+	<button (doors.AClick{On: h}) (a, b)>Go</button>
+	<Icon name="x" (mods...)/>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr_mod
+            (gox_lparen)
+            value: (gox_single_arg
+              (composite_literal
+                type: (qualified_type
+                  package: (package_identifier)
+                  name: (type_identifier))
+                body: (literal_value
+                  (keyed_element
+                    key: (literal_element
+                      (identifier))
+                    value: (literal_element
+                      (identifier))))))
+            (gox_rparen))
+          attrs: (gox_attr_mod
+            (gox_lparen)
+            value: (gox_multi_arg
+              (identifier)
+              (identifier))
+            (gox_rparen))
+          (gox_head_end))
+        content: (gox_plain_text)
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      content: (gox_self_closing_head
+        (gox_open_head_beg)
+        name: (gox_head_name)
+        attrs: (gox_attr
+          name: (gox_attr_name)
+          (gox_attr_assign)
+          value: (gox_single_arg
+            (interpreted_string_literal
+              (interpreted_string_literal_content))))
+        attrs: (gox_attr_mod
+          (gox_lparen)
+          value: (gox_multi_arg
+            (variadic_argument
+              (identifier)))
+          (gox_rparen))
+        (gox_self_closing_head_end)))))
+
+============================================================
+elem: attribute value takes a single argument
+:error
+============================================================
+
+package p
+
+elem T() {
+	<div class=(a, b)></div>
+}
+
+---
+
+
+============================================================
+elem: unquoted identifier attribute value
+:error
+============================================================
+
+package p
+
+elem T() {
+	<div class=card></div>
+}
+
+---
+
+
+============================================================
+elem: keyword, punctuated and boolean attribute names
+============================================================
+
+package p
+
+elem T() {
+	<label for="name" aria-label="x" data-id="1" hx:on="y" x.y="z">Name</label>
+	<button type="submit" default select>Go</button>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_head_end))
+        content: (gox_plain_text)
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          attrs: (gox_attr
+            name: (gox_attr_name))
+          attrs: (gox_attr
+            name: (gox_attr_name))
+          (gox_head_end))
+        content: (gox_plain_text)
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: comments between attributes
+============================================================
+
+package p
+
+elem T() {
+	<div /* note */ id="c" // trailing
+		class="d"></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          attrs: (comment)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          attrs: (comment)
+          attrs: (gox_attr
+            name: (gox_attr_name)
+            (gox_attr_assign)
+            value: (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_head_end))
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: plain text with braces and keywords
+============================================================
+
+package p
+
+elem T() {
+	if {name} for return
+	<p>see http://x.y // text</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_plain_text)
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_plain_text)
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: tilde inside text
+============================================================
+
+package p
+
+elem T() {
+	<p>Hi, ~(name)!</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_plain_text)
+        content: (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          value: (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        content: (gox_plain_text)
+        close: (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+============================================================
+elem: unclosed tag closed by elem body end
+============================================================
+
+package p
+
+elem T() {
+	<p>open
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    name: (identifier)
+    parameters: (parameter_list)
+    body: (gox_block
+      content: (gox_head
+        open: (gox_open_head
+          (gox_open_head_beg)
+          name: (gox_head_name)
+          (gox_head_end))
+        content: (gox_plain_text)
+        close: (gox_implicit_close_head)))))

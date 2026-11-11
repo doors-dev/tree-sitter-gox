@@ -1,0 +1,806 @@
+==================
+keywords: unnamed parameters with a function type
+==================
+
+package p
+
+func f2(int, func(int)) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (type_identifier))
+      (parameter_declaration
+        (function_type
+          (parameter_list
+            (parameter_declaration
+              (type_identifier))))))
+    (block)))
+
+==================
+keywords: interface method with unnamed function parameter
+==================
+
+package p
+
+type Runner[T any] interface {
+	Run(string, func(T)) bool
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (type_declaration
+    (type_spec
+      (type_identifier)
+      (type_parameter_list
+        (type_parameter_declaration
+          (identifier)
+          (type_constraint
+            (type_identifier))))
+      (interface_type
+        (method_elem
+          (field_identifier)
+          (parameter_list
+            (parameter_declaration
+              (type_identifier))
+            (parameter_declaration
+              (function_type
+                (parameter_list
+                  (parameter_declaration
+                    (type_identifier))))))
+          (type_identifier))))))
+
+==================
+keywords: function type with unnamed function parameter
+==================
+
+package p
+
+type Handler func(string, func(int)) error
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (type_declaration
+    (type_spec
+      (type_identifier)
+      (function_type
+        (parameter_list
+          (parameter_declaration
+            (type_identifier))
+          (parameter_declaration
+            (function_type
+              (parameter_list
+                (parameter_declaration
+                  (type_identifier))))))
+        (type_identifier)))))
+
+==================
+keywords: method with unnamed receiver and parameters
+==================
+
+package p
+
+func (T) M(int, func(int)) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (method_declaration
+    (parameter_list
+      (parameter_declaration
+        (type_identifier)))
+    (field_identifier)
+    (parameter_list
+      (parameter_declaration
+        (type_identifier))
+      (parameter_declaration
+        (function_type
+          (parameter_list
+            (parameter_declaration
+              (type_identifier))))))
+    (block)))
+
+==================
+keywords: unnamed result list with function type
+==================
+
+package p
+
+func f() (int, func(int))
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list)
+    (parameter_list
+      (parameter_declaration
+        (type_identifier))
+      (parameter_declaration
+        (function_type
+          (parameter_list
+            (parameter_declaration
+              (type_identifier))))))))
+
+==================
+keywords: func literal with unnamed channel parameter
+==================
+
+package p
+
+var _ = func(int, chan int) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (var_declaration
+    (var_spec
+      (identifier)
+      (expression_list
+        (func_literal
+          (parameter_list
+            (parameter_declaration
+              (type_identifier))
+            (parameter_declaration
+              (channel_type
+                (type_identifier))))
+          (block))))))
+
+==================
+keywords: unnamed elem function type parameter
+==================
+
+package p
+
+func render(string, elem(int)) {}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (type_identifier))
+      (parameter_declaration
+        (gox_elem_function_type
+          (parameter_list
+            (parameter_declaration
+              (type_identifier))))))
+    (block)))
+
+==================
+keywords: elem function type with unnamed function parameter
+==================
+
+package p
+
+type Row elem(string, func(int))
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (type_declaration
+    (type_spec
+      (type_identifier)
+      (gox_elem_function_type
+        (parameter_list
+          (parameter_declaration
+            (type_identifier))
+          (parameter_declaration
+            (function_type
+              (parameter_list
+                (parameter_declaration
+                  (type_identifier))))))))))
+
+==================
+keywords: type keyword used as elem parameter name
+:error
+==================
+
+package p
+
+elem Input(type string) {
+	<input>
+}
+
+---
+
+
+
+==================
+keywords: elem as variable name
+:error
+==================
+
+package p
+
+var elem int
+
+---
+
+
+
+==================
+keywords: keyword attribute names with values
+==================
+
+package p
+
+elem Field(id string) {
+	<label for=(id)>Name</label>
+	<input type="text" go=1 map=(id) range="all">
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            (gox_single_arg
+              (identifier))
+            (gox_rparen))
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_void_head
+        (gox_open_head_beg)
+        (gox_head_name)
+        (gox_attr
+          (gox_attr_name)
+          (gox_attr_assign)
+          (gox_single_arg
+            (interpreted_string_literal
+              (interpreted_string_literal_content))))
+        (gox_attr
+          (gox_attr_name)
+          (gox_attr_assign)
+          (gox_single_arg
+            (int_literal)))
+        (gox_attr
+          (gox_attr_name)
+          (gox_attr_assign)
+          (gox_lparen)
+          (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        (gox_attr
+          (gox_attr_name)
+          (gox_attr_assign)
+          (gox_single_arg
+            (interpreted_string_literal
+              (interpreted_string_literal_content))))
+        (gox_self_closing_head_end)))))
+
+==================
+keywords: keyword boolean attribute names
+==================
+
+package p
+
+elem Choice() {
+	<option select default range>One</option>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name))
+          (gox_attr
+            (gox_attr_name))
+          (gox_attr
+            (gox_attr_name))
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+keywords: keywords in markup text are plain text
+==================
+
+package p
+
+elem Help() {
+	<p>if for range func return</p>
+	<p>
+		go back or select elem
+	</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+keywords: tag names that are go keywords
+==================
+
+package p
+
+elem Tags() {
+	<var>x</var>
+	<map name="m"><area></map>
+	<select></select>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_head_end))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+keywords: tilde composite literal with non-keyword type
+==================
+
+package p
+
+elem Show(x int) {
+	<p title=Item{x}>~Item{ x }</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_single_arg
+              (composite_literal
+                (type_identifier)
+                (literal_value
+                  (literal_element
+                    (identifier))))))
+          (gox_head_end))
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_single_arg
+            (composite_literal
+              (type_identifier)
+              (literal_value
+                (literal_element
+                  (identifier))))))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+keywords: tilde func braces
+:error
+==================
+
+package p
+
+elem A() {
+	<p>~func { x }</p>
+}
+
+---
+
+
+
+==================
+keywords: tilde return braces
+:error
+==================
+
+package p
+
+elem A() {
+	<p>~return { x }</p>
+}
+
+---
+
+
+
+==================
+keywords: attribute func braces
+:error
+==================
+
+package p
+
+elem A() {
+	<p a=func { x }></p>
+}
+
+---
+
+
+
+==================
+legacy: tilde block inline
+:error
+==================
+
+package p
+
+elem A() {
+	<p>~{ x }</p>
+}
+
+---
+
+
+
+==================
+legacy: tilde block with statements
+:error
+==================
+
+package p
+
+elem A() {
+	~{
+		x := 1
+	}
+	<p>~(x)</p>
+}
+
+---
+
+
+
+==================
+legacy: parenthesized func block after tilde
+:error
+==================
+
+package p
+
+elem A() {
+	<p>~(func { return "t" })</p>
+}
+
+---
+
+
+
+==================
+legacy: parenthesized func block as attribute value
+:error
+==================
+
+package p
+
+elem A() {
+	<p title=(func { return "t" })></p>
+}
+
+---
+
+
+
+==================
+legacy: snippet replaces tilde block
+==================
+
+package p
+
+elem A() {
+	~~
+	x := 1
+	~~
+	<p>~(x)</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_tilde_snippet
+        (gox_tilde_marker)
+        (statement_list
+          (short_var_declaration
+            (expression_list
+              (identifier))
+            (expression_list
+              (int_literal))))
+        (gox_tilde_marker))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+legacy: expression attribute replaces func block
+==================
+
+package p
+
+elem A(n int) {
+	<p title=({
+		if n > 0 {
+			return "t"
+		}
+		return nil
+	})></p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            (gox_single_arg
+              (gox_expression
+                (statement_list
+                  (if_statement
+                    (binary_expression
+                      (identifier)
+                      (int_literal))
+                    (block
+                      (statement_list
+                        (return_statement
+                          (expression_list
+                            (interpreted_string_literal
+                              (interpreted_string_literal_content)))))))
+                  (return_statement
+                    (expression_list
+                      (nil))))))
+            (gox_rparen))
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+legacy: tilde expression replaces tilde func block
+==================
+
+package p
+
+elem A(n int) {
+	<p>
+		~({
+			return n
+		})
+	</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          (gox_single_arg
+            (gox_expression
+              (statement_list
+                (return_statement
+                  (expression_list
+                    (identifier))))))
+          (gox_rparen))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+legacy: called func literal in tilde still parses
+==================
+
+package p
+
+elem A() {
+	<p>~(func() string { return "t" }())</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          (gox_single_arg
+            (call_expression
+              (func_literal
+                (parameter_list)
+                (type_identifier)
+                (block
+                  (statement_list
+                    (return_statement
+                      (expression_list
+                        (interpreted_string_literal
+                          (interpreted_string_literal_content)))))))
+              (argument_list)))
+          (gox_rparen))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))

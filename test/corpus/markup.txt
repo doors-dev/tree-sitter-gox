@@ -1,0 +1,1464 @@
+==================
+markup nested elements
+==================
+
+package p
+
+elem Card() {
+	<div class="card"><h1>Title</h1><p>Body</p></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup nested same-name elements
+==================
+
+package p
+
+elem Box() {
+	<div><div>x</div></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup custom and svg element names
+==================
+
+package p
+
+elem Icon() {
+	<my-card><svg><path d="M0 0"/></svg></my-card>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_self_closing_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_attr
+              (gox_attr_name)
+              (gox_attr_assign)
+              (gox_single_arg
+                (interpreted_string_literal
+                  (interpreted_string_literal_content))))
+            (gox_self_closing_head_end))
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup tag names are case-insensitive
+==================
+
+package p
+
+elem Box() {
+	<DIV>x</div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup plain text with braces and symbols
+==================
+
+package p
+
+elem Text() {
+	<p>a {b} c > d &amp; e</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup text interleaved with elements
+==================
+
+package p
+
+elem Hello() {
+	<p>Hello <b>world</b>!</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup space followed by text is part of the text
+==================
+
+package p
+
+elem Hello() {
+	<p><b>a</b> c</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup text around tilde
+==================
+
+package p
+
+elem Hi(name string) {
+	<p>Hello, ~(name)!</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup space filler before and after a child
+==================
+
+package p
+
+elem Pad() {
+	<p> <b>a</b> </p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_space_filler)
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_space_filler)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup one space filler per space between siblings
+==================
+
+package p
+
+elem Pair() {
+	<b>a</b>  <i>b</i>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_space_filler)
+      (gox_space_filler)
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup space filler between tildes
+==================
+
+package p
+
+elem Name(first, last string) {
+	<p>~(first) ~(last)</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        (gox_space_filler)
+        (gox_tilde
+          (gox_tilde_marker)
+          (gox_lparen)
+          (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup space filler inside tilde block
+==================
+
+package p
+
+elem Maybe(ok bool) {
+	~(if ok { <b>yes</b> })
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_tilde
+        (gox_tilde_marker)
+        (gox_tilde_if
+          (gox_lparen)
+          (gox_tilde_if_setup
+            (identifier))
+          (gox_block
+            (gox_space_filler)
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_plain_text)
+              (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))
+            (gox_space_filler))
+          (gox_rparen))))))
+
+==================
+markup newlines and tabs are not fillers
+==================
+
+package p
+
+elem List() {
+	<ul>
+		<li>a</li>	<li>b</li>
+	</ul>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup space filler before line break
+==================
+
+package p
+
+elem Pair() {
+	<b>a</b> 
+	<i>b</i>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_space_filler)
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup void elements
+==================
+
+package p
+
+elem Form() {
+	<form><input type="text"><br><hr/></form>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_self_closing_head_end))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup multi-line void element with slash
+==================
+
+package p
+
+elem Hidden(id string) {
+	<input
+		type="hidden"
+		name=(id)/>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_void_head
+        (gox_open_head_beg)
+        (gox_head_name)
+        (gox_attr
+          (gox_attr_name)
+          (gox_attr_assign)
+          (gox_single_arg
+            (interpreted_string_literal
+              (interpreted_string_literal_content))))
+        (gox_attr
+          (gox_attr_name)
+          (gox_attr_assign)
+          (gox_lparen)
+          (gox_single_arg
+            (identifier))
+          (gox_rparen))
+        (gox_self_closing_head_end)))))
+
+==================
+markup self-closing non-void elements
+==================
+
+package p
+
+elem Empty() {
+	<section><div/><span class="x" /></section>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_self_closing_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_self_closing_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_single_arg
+              (interpreted_string_literal
+                (interpreted_string_literal_content))))
+          (gox_self_closing_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup script raw text
+==================
+
+package p
+
+elem Run() {
+	<script>
+		if (a < b && c > d) { el.innerHTML = "<div>x</div>" }
+	</script>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_script_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_raw_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup script with attributes
+==================
+
+package p
+
+elem Run(id string) {
+	<script data:id=(id)>
+		const id = $data("id")
+	</script>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_script_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_attr
+            (gox_attr_name)
+            (gox_attr_assign)
+            (gox_lparen)
+            (gox_single_arg
+              (identifier))
+            (gox_rparen))
+          (gox_head_end))
+        (gox_raw_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup style raw text
+==================
+
+package p
+
+elem Theme() {
+	<style>
+		.card > p { color: red; }
+	</style>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_style_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_raw_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup raw element
+==================
+
+package p
+
+elem Raw() {
+	<:> <b>not markup</b> ~(x) </:>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_raw_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_raw_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup raw text element followed by sibling
+==================
+
+package p
+
+elem Run() {
+	<div><script>go()</script><p>b</p></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_script_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_raw_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup fragment container
+==================
+
+package p
+
+elem Pair() {
+	<><p>a</p><p>b</p></>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_container_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup fragment as call argument
+==================
+
+package p
+
+func Static(ctx context.Context) {
+	render(ctx, <>
+		<p>a</p>
+	</>)
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (qualified_type
+          (package_identifier)
+          (type_identifier))))
+    (block
+      (statement_list
+        (expression_statement
+          (call_expression
+            (identifier)
+            (argument_list
+              (identifier)
+              (gox_element
+                (gox_container_head
+                  (gox_open_head
+                    (gox_open_head_beg)
+                    (gox_head_end))
+                  (gox_head
+                    (gox_open_head
+                      (gox_open_head_beg)
+                      (gox_head_name)
+                      (gox_head_end))
+                    (gox_plain_text)
+                    (gox_close_head
+                      (gox_close_head_beg)
+                      (gox_head_name)
+                      (gox_head_end)))
+                  (gox_close_head
+                    (gox_close_head_beg)
+                    (gox_head_name)
+                    (gox_head_end)))))))))))
+
+==================
+markup element as return value
+==================
+
+package p
+
+func Badge(label string) gox.Comp {
+	return <span class="badge">~(label)</span>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (qualified_type
+      (package_identifier)
+      (type_identifier))
+    (block
+      (statement_list
+        (return_statement
+          (expression_list
+            (gox_element
+              (gox_head
+                (gox_open_head
+                  (gox_open_head_beg)
+                  (gox_head_name)
+                  (gox_attr
+                    (gox_attr_name)
+                    (gox_attr_assign)
+                    (gox_single_arg
+                      (interpreted_string_literal
+                        (interpreted_string_literal_content))))
+                  (gox_head_end))
+                (gox_tilde
+                  (gox_tilde_marker)
+                  (gox_lparen)
+                  (gox_single_arg
+                    (identifier))
+                  (gox_rparen))
+                (gox_close_head
+                  (gox_close_head_beg)
+                  (gox_head_name)
+                  (gox_head_end))))))))))
+
+==================
+markup implicit close by sibling li
+==================
+
+package p
+
+elem List() {
+	<ul><li>a<li>b</ul>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close of paragraph by block element
+==================
+
+package p
+
+elem Doc() {
+	<p>intro<div>block</div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close by ancestor close tag
+==================
+
+package p
+
+elem Doc() {
+	<div><ul><li>a</div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close of table cells and rows
+==================
+
+package p
+
+elem Table() {
+	<table><tr><td>a<td>b<tr><td>c</table>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close at closing brace
+==================
+
+package p
+
+elem Maybe(ok bool) {
+	~(if ok { <p>open })
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list
+      (parameter_declaration
+        (identifier)
+        (type_identifier)))
+    (gox_block
+      (gox_tilde
+        (gox_tilde_marker)
+        (gox_tilde_if
+          (gox_lparen)
+          (gox_tilde_if_setup
+            (identifier))
+          (gox_block
+            (gox_space_filler)
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_plain_text)
+              (gox_implicit_close_head)))
+          (gox_rparen))))))
+
+==================
+markup implicit close at end of file
+==================
+
+package p
+
+var x = <p>hi
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (var_declaration
+    (var_spec
+      (identifier)
+      (expression_list
+        (gox_element
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head)))))))
+
+==================
+markup erroneous close tag
+==================
+
+package p
+
+elem Doc() {
+	<div>a</span></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_erroneous_close_head
+          (gox_erroneous_close_head_name))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup erroneous close of void element
+==================
+
+package p
+
+elem Doc() {
+	<div><br></br></div>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_erroneous_close_head
+          (gox_erroneous_close_head_name))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup html comments
+==================
+
+package p
+
+elem Doc() {
+	<!-- top -->
+	<p>a <!-- <b>not a tag</b> --> b</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_comment)
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_comment)
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup doctype
+==================
+
+package p
+
+elem Page() {
+	<!DOCTYPE html>
+	<html><body>hi</body></html>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_doctype
+        (gox_doctype_identifier)
+        (gox_head_end))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup unterminated script
+:error
+==================
+
+package p
+
+elem Run() {
+	<script>
+		go()
+}
+
+---
+
+
