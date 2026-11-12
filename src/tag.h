@@ -370,7 +370,7 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
             return true;
 
         case COLGROUP:
-            return child == COL;
+            return child == COL || child == TEMPLATE;
 
         case RB:
         case RT:

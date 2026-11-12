@@ -1881,6 +1881,64 @@ elem Table() {
           (gox_head_end))))))
 
 ==================
+markup colgroup keeps template
+==================
+
+package p
+
+elem Table() {
+	<table><colgroup><col><template><col></template><thead></table>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_void_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_self_closing_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_void_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_self_closing_head_end))
+            (gox_close_head
+              (gox_close_head_beg)
+              (gox_head_name)
+              (gox_head_end)))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
 markup implicit close at closing brace
 ==================
 
