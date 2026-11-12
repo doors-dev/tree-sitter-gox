@@ -1098,6 +1098,77 @@ elem List() {
           (gox_head_end))))))
 
 ==================
+markup paragraph keeps phrasing children and closes at p
+==================
+
+package p
+
+elem Doc() {
+	<p>a<span>b</span><a>c</a><my-x>d</my-x><br><p>e</p>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_void_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_self_closing_head_end))
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
 markup implicit close of paragraph by block element
 ==================
 
@@ -1129,6 +1200,406 @@ elem Doc() {
           (gox_head_name)
           (gox_head_end))
         (gox_plain_text)
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close of paragraph by remaining block elements
+==================
+
+package p
+
+elem Doc() {
+	<p>a<address></address><p>b<article></article><p>c<aside></aside><p>d<blockquote></blockquote><p>e<details></details><p>f<dl></dl><p>g<fieldset></fieldset><p>h<figcaption></figcaption><p>i<figure></figure><p>j<footer></footer><p>k<form></form><p>l<h1></h1><p>m<h2></h2>
+	<p>n<h3></h3><p>o<h4></h4><p>p<h5></h5><p>q<h6></h6><p>r<header></header><p>s<hr><p>t<main></main><p>u<nav></nav><p>v<ol></ol><p>w<pre></pre><p>x<section></section>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_void_head
+        (gox_open_head_beg)
+        (gox_head_name)
+        (gox_self_closing_head_end))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_implicit_close_head))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
         (gox_close_head
           (gox_close_head_beg)
           (gox_head_name)
@@ -1567,12 +2038,71 @@ elem Doc() {
           (gox_head_end))))))
 
 ==================
+markup implicit close of ruby annotations
+==================
+
+package p
+
+elem Doc() {
+	<ruby>a<rb>b<rt>c<rp>d<rb>e</ruby>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_plain_text)
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
 markup mismatched custom close tag is ignored
 ==================
 
 package p
 
 elem Doc() {
+	<div><my-a>x</my-b>y</my-a></div>
 	<div><my-a><span>x</my-b>y</my-a></div>
 }
 
@@ -1585,6 +2115,28 @@ elem Doc() {
     (identifier)
     (parameter_list)
     (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_erroneous_close_head
+            (gox_erroneous_close_head_name))
+          (gox_plain_text)
+          (gox_close_head
+            (gox_close_head_beg)
+            (gox_head_name)
+            (gox_head_end)))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
       (gox_head
         (gox_open_head
           (gox_open_head_beg)
@@ -1711,6 +2263,105 @@ elem Table() {
               (gox_head_name)
               (gox_head_end))
             (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup table cell keeps flow children
+==================
+
+package p
+
+elem Table() {
+	<table><tr><td><div>a</div><p>b</p><table><tr><td>c</table><th><span>d</span></table>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_plain_text)
+              (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_plain_text)
+              (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_head
+                (gox_open_head
+                  (gox_open_head_beg)
+                  (gox_head_name)
+                  (gox_head_end))
+                (gox_head
+                  (gox_open_head
+                    (gox_open_head_beg)
+                    (gox_head_name)
+                    (gox_head_end))
+                  (gox_plain_text)
+                  (gox_implicit_close_head))
+                (gox_implicit_close_head))
+              (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))
+            (gox_implicit_close_head))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_head
+              (gox_open_head
+                (gox_open_head_beg)
+                (gox_head_name)
+                (gox_head_end))
+              (gox_plain_text)
+              (gox_close_head
+                (gox_close_head_beg)
+                (gox_head_name)
+                (gox_head_end)))
             (gox_implicit_close_head))
           (gox_implicit_close_head))
         (gox_close_head
@@ -1868,6 +2519,113 @@ elem Table() {
               (gox_plain_text)
               (gox_implicit_close_head))
             (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end))))))
+
+==================
+markup implicit close of caption by rows and cells
+==================
+
+package p
+
+elem Table() {
+	<table><caption>a<tr><th>b<th>c</table>
+	<table><caption>d<td>e<caption>f<th>g<caption>h<tbody></table>
+}
+
+---
+
+(source_file
+  (package_clause
+    (package_identifier))
+  (gox_elem_function_declaration
+    (identifier)
+    (parameter_list)
+    (gox_block
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_head
+            (gox_open_head
+              (gox_open_head_beg)
+              (gox_head_name)
+              (gox_head_end))
+            (gox_plain_text)
+            (gox_implicit_close_head))
+          (gox_implicit_close_head))
+        (gox_close_head
+          (gox_close_head_beg)
+          (gox_head_name)
+          (gox_head_end)))
+      (gox_head
+        (gox_open_head
+          (gox_open_head_beg)
+          (gox_head_name)
+          (gox_head_end))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
+          (gox_implicit_close_head))
+        (gox_head
+          (gox_open_head
+            (gox_open_head_beg)
+            (gox_head_name)
+            (gox_head_end))
+          (gox_plain_text)
           (gox_implicit_close_head))
         (gox_head
           (gox_open_head
