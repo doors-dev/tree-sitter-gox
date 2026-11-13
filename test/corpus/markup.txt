@@ -3691,6 +3691,36 @@ elem Page() {
           (gox_head_end))))))
 
 ==================
+markup less-than in script attribute expression
+:error
+==================
+
+package p
+
+elem Doc() {
+	<script data-x=(<)></script>
+}
+
+---
+
+
+
+==================
+markup less-than in style attribute expression
+:error
+==================
+
+package p
+
+elem Doc() {
+	<style data-x=(<)></style>
+}
+
+---
+
+
+
+==================
 markup unterminated script
 :error
 ==================

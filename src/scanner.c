@@ -157,7 +157,7 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
     array_back(&scanner->tags)->type == RAW    ? "</:"    :
                                                   NULL;
     if (!end_delimiter) {
-        abort();
+        return false;
     }
 
     bool trim = array_back(&scanner->tags)->type != RAW;
