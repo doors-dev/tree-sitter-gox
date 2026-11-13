@@ -103,6 +103,7 @@ typedef enum {
     S,
     SAMP,
     SCRIPT,
+    SEARCH,
     SECTION,
     SELECT,
     SLOT,
@@ -147,7 +148,7 @@ typedef struct {
     String custom_tag_name;
 } Tag;
 
-static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
+static const TagMapEntry TAG_TYPES_BY_TAG_NAME[] = {
     {"AREA",       AREA      },
     {"BASE",       BASE      },
     {"BASEFONT",   BASEFONT  },
@@ -247,6 +248,7 @@ static const TagMapEntry TAG_TYPES_BY_TAG_NAME[127] = {
     {"S",          S         },
     {"SAMP",       SAMP      },
     {"SCRIPT",     SCRIPT    },
+    {"SEARCH",     SEARCH    },
     {"SECTION",    SECTION   },
     {"SELECT",     SELECT    },
     {"SLOT",       SLOT      },
@@ -282,14 +284,15 @@ static const TagType TAG_TYPES_NOT_ALLOWED_IN_PARAGRAPHS[] = {
     DIV,      DL,         DT,     FIELDSET,   FIGCAPTION, FIGURE, FOOTER,
     FORM,     H1,         H2,     H3,         H4,      H5,      H6,
     HEADER,   HGROUP,     HR,     LI,         MAIN,    MENU,    NAV,
-    OL,       P,          PRE,    SECTION,    SUMMARY, TABLE,   UL,
+    OL,       P,          PRE,    SEARCH,     SECTION, SUMMARY, TABLE,
+    UL,
 };
 
 static TagType tag_type_for_name(const String *tag_name) {
     if (tag_name->size == 0) {
         return CONTAINER;
     }
-    for (int i = 0; i < 126; i++) {
+    for (size_t i = 0; i < sizeof(TAG_TYPES_BY_TAG_NAME) / sizeof(TagMapEntry); i++) {
         const TagMapEntry *entry = &TAG_TYPES_BY_TAG_NAME[i];
         if (
             strlen(entry->tag_name) == tag_name->size &&
@@ -346,6 +349,10 @@ static inline bool tag_eq(const Tag *self, const Tag *other) {
     return true;
 }
 
+static inline bool tag_is_heading(TagType type) {
+    return type >= H1 && type <= H6;
+}
+
 static inline bool tag_starts_table_part(TagType type) {
     return type == CAPTION || type == COL || type == COLGROUP || type == THEAD || type == TBODY || type == TFOOT;
 }
@@ -368,6 +375,14 @@ static bool tag_can_contain(Tag *self, const Tag *other) {
                 }
             }
             return true;
+
+        case H1:
+        case H2:
+        case H3:
+        case H4:
+        case H5:
+        case H6:
+            return !tag_is_heading(child);
 
         case COLGROUP:
             return child == COL || child == TEMPLATE;
