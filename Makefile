@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-gox
 HOMEPAGE_URL := https://github.com/doors-dev/tree-sitter-gox
-VERSION := 0.3.0
+VERSION := 0.3.1
 
 # repository
 SRC_DIR := src
