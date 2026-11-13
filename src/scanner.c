@@ -178,12 +178,20 @@ static bool scan_raw_text(Scanner *scanner, TSLexer *lexer) {
             }
             advance(lexer);
         } else {
-            delimiter_index = 0;
-            if (trim && iswspace(lexer->lookahead)) {
+            if (delimiter_index > 0) {
+                lexer->mark_end(lexer);
+            }
+            if (lexer->lookahead == '<') {
+                delimiter_index = 1;
                 advance(lexer);
             } else {
-                advance(lexer);
-                lexer->mark_end(lexer);
+                delimiter_index = 0;
+                if (trim && iswspace(lexer->lookahead)) {
+                    advance(lexer);
+                } else {
+                    advance(lexer);
+                    lexer->mark_end(lexer);
+                }
             }
         }
     }
